@@ -4,6 +4,7 @@
   "private": true,
   "dependencies": {
     "husky": "^3.0.9",
+    "prettier": "^1.18.2",
     "react": "^16.10.2",
     "react-dom": "^16.10.2",
     "react-scripts": "3.2.0"
@@ -13,10 +14,11 @@
     "build": "react-scripts build",
     "test": "react-scripts test",
     "eject": "react-scripts eject",
-    "lint": "eslint --ext .js --ext .jsx ."
+    "lint": "eslint --ext .js --ext .jsx .",
+    "format": "prettier --write \"src/**/*.+(js|jsx|json|css)\" \"src/**/*.test.js\""
   },
   "eslintConfig": {
-    "extends": "react-app"
+    "extends": "[react-app, plugin:prettier/recommended]"
   },
   "browserslist": {
     "production": [
@@ -40,7 +42,7 @@
   },
   "husky": {
     "hooks": {
-      "pre-commit": "npm run lint"
+      "pre-commit": "npm run lint && npm run format"
     }
   }
 }
