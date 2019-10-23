@@ -1,4 +1,5 @@
 import React from 'react';
+import { Link } from 'react-router-dom';
 import logo from './logo.svg';
 import './App.css';
 
@@ -12,6 +13,7 @@ function App() {
           <code>src/App.js</code>
           and save to reload.
         </p>
+        <Link to="/">Home</Link>
         <a
           className="App-link"
           href="https://reactjs.org"
