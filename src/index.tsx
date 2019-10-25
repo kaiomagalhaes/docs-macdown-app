@@ -1,10 +1,10 @@
 import React from 'react';
 import ReactDOM from 'react-dom';
 import { BrowserRouter as Router, Route, Switch } from 'react-router-dom';
-import Navbar from './components/Navbar';
-import Users from './pages/Users';
-import Properties from './pages/Properties';
-import NotFound from './pages/NotFound';
+import Navbar from 'components/Navbar';
+import Users from 'pages/Users';
+import Properties from 'pages/Properties';
+import NotFound from 'pages/NotFound';
 
 import './index.css';
 import App from './App';
