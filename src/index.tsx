@@ -6,7 +6,7 @@ import Users from 'pages/Users';
 import Properties from 'pages/Properties';
 import NotFound from 'pages/NotFound';
 
-import './index.css';
+import './assets/stylesheets/global.scss';
 import App from './App';
 import * as serviceWorker from './serviceWorker';
 
