@@ -1,28 +1,11 @@
 import React from 'react';
 import ReactDOM from 'react-dom';
-import { BrowserRouter as Router, Route, Switch } from 'react-router-dom';
-import Navbar from 'components/Navbar';
-import Users from 'pages/Users';
-import Properties from 'pages/Properties';
-import NotFound from 'pages/NotFound';
 
 import './assets/stylesheets/global.scss';
 import App from './App';
 import * as serviceWorker from './serviceWorker';
 
-const Root = () => (
-  <Router>
-    <>
-      <Navbar />
-      <Switch>
-        <Route path="/" exact component={App} />
-        <Route path="/users" exact component={Users} />
-        <Route path="/properties" exact component={Properties} />
-        <Route component={NotFound} />
-      </Switch>
-    </>
-  </Router>
-);
+const Root = () => <App />;
 
 ReactDOM.render(<Root />, document.getElementById('root'));
 

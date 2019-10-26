@@ -1,25 +1,27 @@
 import React from 'react';
-import logo from './assets/images/logo.svg';
+import { BrowserRouter as Router, Route, Switch } from 'react-router-dom';
+import Navbar from 'components/Navbar';
+import Users from 'pages/Users';
+import Properties from 'pages/Properties';
+import NotFound from 'pages/NotFound';
+import Home from 'pages/Home';
 import styles from './App.module.scss';
 
 const App: React.FC = () => {
   return (
-    <div className={styles.app}>
-      <header className={styles['app-header']}>
-        <img src={logo} className={styles['app-logo']} alt="logo" />
-        <p>
-          Edit <code>src/App.tsx</code> and save to reload.
-        </p>
-        <a
-          className={styles['app-link']}
-          href="https://reactjs.org"
-          target="_blank"
-          rel="noopener noreferrer"
-        >
-          Learn React
-        </a>
-      </header>
-    </div>
+    <Router>
+      <Navbar />
+      <div className={styles.app}>
+        <header className={styles['app-header']}>
+          <Switch>
+            <Route path="/" exact component={Home} />
+            <Route path="/users" exact component={Users} />
+            <Route path="/properties" exact component={Properties} />
+            <Route component={NotFound} />
+          </Switch>
+        </header>
+      </div>
+    </Router>
   );
 };
 
