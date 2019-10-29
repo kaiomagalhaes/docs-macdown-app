@@ -1,11 +1,14 @@
 import React from 'react';
 import { useQuery } from '@apollo/react-hooks';
+import { match } from 'react-router';
 import Property from 'components/Property';
 
 import { PROPERTY_QUERY } from './graphql';
 
-// @TODO: research how to organize typescript VS proptypes
-const PropertyPage = (props: any) => {
+type PropertyPageParams = { id: string };
+type PropertyPageProps = { match: match<PropertyPageParams> };
+
+const PropertyPage = (props: PropertyPageProps) => {
   const { id } = props.match.params;
 
   const { loading, error, data } = useQuery(PROPERTY_QUERY, {

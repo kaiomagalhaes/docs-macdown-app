@@ -1,21 +1,13 @@
 import React from 'react';
-import PropTypes from 'prop-types';
-
-import { PropertyModel } from '../../models/property-model';
-
 import styles from './Property.module.scss';
+import { PropertyModel } from 'models/property-model';
 
-const propTypes = {
-  property: PropTypes.object,
-};
+type PropertyProps = { property: PropertyModel };
 
-// @TODO: research about the proper way to use typescript with propTypes
-const Property = ({ property }: { property: PropertyModel }) => (
-  <div key={`property-${property.id}`} className={styles.container}>
-    <span> {property.name} </span>
+const Property = (props: PropertyProps) => (
+  <div key={`property-${props.property.id}`} className={styles.container}>
+    <span> {props.property.name} </span>
   </div>
 );
-
-Property.propTypes = propTypes;
 
 export default Property;
