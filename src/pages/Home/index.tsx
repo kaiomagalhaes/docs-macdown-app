@@ -1,5 +1,5 @@
 import React from 'react';
-import logo from 'assets/images/logo.svg';
+import logo from '../../assets/images/logo.svg';
 import styles from './Home.module.scss';
 
 const Home: React.FC = () => (
