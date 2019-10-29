@@ -3,11 +3,12 @@ import { BrowserRouter as Router, Route, Switch } from 'react-router-dom';
 import Navbar from './components/Navbar';
 import styles from './App.module.scss';
 
-const Users = lazy(() => import('./pages/Users'));
-const Properties = lazy(() => import('./pages/Properties'));
-const PropertyPage = lazy(() => import('./pages/PropertyPage'));
-const Home = lazy(() => import('./pages/Home'));
-const NotFound = lazy(() => import('./pages/NotFound'));
+const Users = lazy(() => import('pages/Users'));
+const ListProperties = lazy(() => import('pages/Properties/ListProperties'));
+const ShowProperty = lazy(() => import('pages/Properties/ShowProperty'));
+const NewProperty = lazy(() => import('pages/Properties/NewProperty'));
+const Home = lazy(() => import('pages/Home'));
+const NotFound = lazy(() => import('pages/NotFound'));
 
 const App: React.FC = () => (
   <Router>
@@ -18,8 +19,9 @@ const App: React.FC = () => (
           <Switch>
             <Route path="/" exact component={Home} />
             <Route path="/users" exact component={Users} />
-            <Route path="/properties" exact component={Properties} />
-            <Route path="/properties/:id" exact component={PropertyPage} />
+            <Route path="/properties" exact component={ListProperties} />
+            <Route path="/properties/new" exact component={NewProperty} />
+            <Route path="/properties/:id" exact component={ShowProperty} />
             <Route component={NotFound} />
           </Switch>
         </Suspense>

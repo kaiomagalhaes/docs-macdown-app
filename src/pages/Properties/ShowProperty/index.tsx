@@ -12,6 +12,7 @@ const PROPERTY_QUERY = gql`
   }
 `;
 
+// @TODO: research how to organize typescript VS proptypes
 const PropertyPage = (props: any) => {
   const { id } = props.match.params;
 
