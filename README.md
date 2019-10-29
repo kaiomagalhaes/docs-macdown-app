@@ -1,5 +1,13 @@
 This project was bootstrapped with [Create React App](https://github.com/facebook/create-react-app).
 
+## Getting started
+
+1. Clone the project.
+3. Install all dependencies with `npm install`.
+3. Copy the `.env.example` file into an `.env` file.
+4. Run the app `npm start`.
+5. Go to your browser and access `http://localhost:3000`.
+
 ## Available Scripts
 
 In the project directory, you can run:
