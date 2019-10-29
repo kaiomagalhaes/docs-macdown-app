@@ -1,17 +1,17 @@
 .list {
-  list-style: none;
   display: flex;
   justify-content: space-evenly;
+  list-style: none;
 
   a {
-    text-decoration: none;
     color: black;
     padding: 10px;
-  
+    text-decoration: none;
+
     &:hover {
       background-color: blue;
-      color: white;
       border-radius: 12px;
+      color: white;
     }
   }
 }
