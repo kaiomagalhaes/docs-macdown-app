@@ -1,18 +1,9 @@
 import React from 'react';
 import { useQuery } from '@apollo/react-hooks';
-import { gql } from 'apollo-boost';
 import Property from 'components/Property';
 import { PropertyModel } from 'models/property-model';
 
-// @TODO: define where the queries should be placed
-const PROPERTIES_NAMES_QUERY = gql`
-  query {
-    properties2 {
-      id
-      name
-    }
-  }
-`;
+import { PROPERTIES_NAMES_QUERY } from './graphql';
 
 const Properties = () => {
   const { loading, error, data } = useQuery(PROPERTIES_NAMES_QUERY);

@@ -1,27 +1,9 @@
 import React from 'react';
 import { useMutation, useQuery } from '@apollo/react-hooks';
-import { gql } from 'apollo-boost';
 import Property from 'components/Property';
 import { PropertyModel } from 'models/property-model';
 
-const PROPERTIES_NAMES_QUERY = gql`
-  query {
-    properties2(filter: { limit: 10, order: "name" }) {
-      id
-      name
-    }
-  }
-`;
-
-// @TODO: define where the queries should be placed
-const NEW_PROPERTY_MUTATION = gql`
-  mutation($name: String!) {
-    propertiesControllerCreate(newPropertyInput: { name: $name }) {
-      name
-      id
-    }
-  }
-`;
+import { PROPERTIES_NAMES_QUERY, NEW_PROPERTY_MUTATION } from './graphql';
 
 const NewProperty = () => {
   const { loading, error, data } = useQuery(PROPERTIES_NAMES_QUERY);

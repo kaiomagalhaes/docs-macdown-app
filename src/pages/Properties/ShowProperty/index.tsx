@@ -1,16 +1,8 @@
 import React from 'react';
 import { useQuery } from '@apollo/react-hooks';
-import { gql } from 'apollo-boost';
 import Property from 'components/Property';
 
-// @TODO: define where the queries should be placed
-const PROPERTY_QUERY = gql`
-  query($id: Float!) {
-    property(id: $id) {
-      name
-    }
-  }
-`;
+import { PROPERTY_QUERY } from './graphql';
 
 // @TODO: research how to organize typescript VS proptypes
 const PropertyPage = (props: any) => {
