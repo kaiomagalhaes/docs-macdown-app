@@ -22,6 +22,10 @@
   "scripts": {
     "start": "react-scripts start",
     "build": "react-scripts build",
+    "docker:build": "docker-compose build",
+    "docker:dev": "sh bin/docker/dev.sh",
+    "docker:start": "sh bin/docker/start.sh",
+    "docker:stop": "docker-compose down",
     "eject": "react-scripts eject",
     "lint": "tsc --noEmit && eslint '*/**/*.{js,ts,tsx}' && stylelint 'src/**/*.{css,scss}'",
     "lint:fix": "tsc --noEmit && eslint --fix '*/**/*.{js,ts,tsx}' && stylelint --fix 'src/**/*.{css,scss}'",
