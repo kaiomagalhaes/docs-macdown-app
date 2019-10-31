@@ -44,10 +44,13 @@ The project comes with multiple `package.json` scripts created to run useful com
 
 - `start`: Runs the app in the development mode.
 - `build`: Builds the app for production to the `build` folder ([More info](https://facebook.github.io/create-react-app/docs/deployment)).
-- `docker:build`: Builds the Docker Container.
 - `docker:dev`: Starts the Docker Container and creates a bash session.
-- `docker:start`: Starts the Docker Container and runs the app.
-- `docker:stop`: Stops the Docker container.
+- `docker:dev:build`: Builds the Docker Container.
+- `docker:dev:start`: Starts the Docker Container and runs the app, so you can immediately access the app on http://localhost:300.
+- `docker:dev:stop`: Stops the Docker container.
+- `docker:prod:build`: Builds the app for production.
+- `docker:prod:start`: Builds the app for production and starts the ngnix server on port 80.
+- `docker:prod:stop`: Stops the prod build container.
 - `lint`: Runs the eslint tool
 - `lint:fix`: Runs the eslint tool and fix possible offenses.
 - `prettier:format`: Properly formats all our code.
