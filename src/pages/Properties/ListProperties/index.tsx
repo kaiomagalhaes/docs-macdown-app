@@ -1,9 +1,11 @@
 import React from 'react';
 import { useQuery } from '@apollo/react-hooks';
-import Property from 'components/Property';
-import { PropertyModel } from 'models/property-model';
+import { Link } from 'react-router-dom';
 
+import { PropertyModel } from 'models/property-model';
+import Property from '../../../components/Property';
 import { PROPERTIES_NAMES_QUERY } from './graphql';
+import locations from 'routes';
 
 const Properties = () => {
   const { loading, error, data } = useQuery(PROPERTIES_NAMES_QUERY);
@@ -13,7 +15,12 @@ const Properties = () => {
 
   // @TODO:  update the names since 'properties2' is not a proper name for the example
   const properties = data.properties2.map((property: PropertyModel) => (
-    <Property key={`property-${property.id}`} property={property} />
+    <Link
+      to={locations.showProperty(property.id)}
+      key={`property-${property.id}`}
+    >
+      <Property property={property} />
+    </Link>
   ));
 
   return (
