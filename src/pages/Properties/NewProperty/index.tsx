@@ -1,6 +1,6 @@
 import React from 'react';
 import { useMutation, useQuery } from '@apollo/react-hooks';
-import Property from 'components/Property';
+import Property from '../../../components/Property';
 import { PropertyModel } from 'models/property-model';
 
 import { PROPERTIES_NAMES_QUERY, NEW_PROPERTY_MUTATION } from './graphql';

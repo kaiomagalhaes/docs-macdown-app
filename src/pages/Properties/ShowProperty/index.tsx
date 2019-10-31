@@ -1,7 +1,7 @@
 import React from 'react';
 import { useQuery } from '@apollo/react-hooks';
 import { match } from 'react-router';
-import Property from 'components/Property';
+import Property from '../../../components/Property';
 
 import { PROPERTY_QUERY } from './graphql';
 

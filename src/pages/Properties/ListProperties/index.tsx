@@ -5,7 +5,7 @@ import { Link } from 'react-router-dom';
 import { PropertyModel } from 'models/property-model';
 import Property from '../../../components/Property';
 import { PROPERTIES_NAMES_QUERY } from './graphql';
-import locations from 'routes';
+import locations from '../../../routes';
 
 const Properties = () => {
   const { loading, error, data } = useQuery(PROPERTIES_NAMES_QUERY);
