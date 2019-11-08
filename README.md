@@ -89,3 +89,50 @@ For the test steps we have provided a basic node js testing flow.
 The app project will be build using nodejs (currently docker test are not supported) and validate that the build is working as expected.
 Then will validate tests and lint.
 In the case of environment variables, for security reasons, it should be stored on the **Azure DevOps portal** to avoid having those variables in plain text on the repository.
+
+#### Build release configuration
+The app project will be built based on the `docker-compose.yml` file. Azure will look up image that need to be built, will build those images and push it to the **Azure Container Registry** or other container repository, where the images tags are stored. 
+To configure that you have to update the `azureContainerRegistry` property, with the registry that you want to use. 
+Using the Azure UI is easy to configure the azure container registry, if not properties are configurable using application settings.
+
+`DOCKER_REGISTRY_SERVER_URL`: Registry URL
+`DOCKER_CUSTOM_IMAGE_NAME` : Complete image name
+`DOCKER_REGISTRY_SERVER_USERNAME` & `DOCKER_REGISTRY_SERVER_PASSWORD` : For repository access.
+
+#### Container registry
+For the porpouse of reviewing full azure integration we have setted up a **Azure Container Registry**. For that we have created the corresponding resource on azure, and once created we have to do some small configurations:
+
+- Enable Admin access, from the Security Tab.
+- Copy one of the two password provided, you will need that for future access.
+- When configuring access to this registry from Azure Pipelines, the microsoft wizard will be pretty straight forward, just selecting the repository and the image, from the suscription you have on azure, will be enough to set up the connection.
+- If you want to follow the **AppSettings** approach, check the section above for the properties to set up.
+
+## Continuous Deployment
+
+### Introduction
+
+The deployed app is a NodeJS application, this solution can be deployed in different ways using docker containers or even as basic webapp running node.
+For now we have configured single docker container.
+
+### Docker Single Container.
+
+The docker single container configuration uses the image configured with the specific tag, applications settings and run it. 
+Is important that the image exposes port 8080 or 80, so this is mapped from the image. This is a limitation of azure.
+
+#### Release Job
+
+The release job is automatically triggered after a deployment build completes, and executes the first stage as part of the Continuous deployment process. Normally this will deploy to the DEV environment, and force for authorization on the following environments.
+
+The job consists on a set of **steps** for each **stage**.
+For now we are only using one step for this release, but database specific jobs like migrations can be run as part of the release process.
+
+The step we are using is `Deploy Azure App Service`, that request access to the specific `Web App` that we created for this container. Also it will request the TAG version of the image that was just built.
+
+For dev porpuses latest could be an option but its recommended to use the `$(Build.BuildId)` variable that will match the image built on the build job that triggered the release. This way each release is attached to a specific image and can be redeployed at any time.
+
+As its explained later, application settings can be defined and stored as variables of the release and used on the `App & Configuration settings` to provide environment variables of the container.
+
+#### Settings for the container
+
+Environment variables can be configured over the application using the `Configuration` that will pass over as environment variables.
+Also this settings can be provided on the Container deployment task using the `App Settings` that are provided on the `Deploy Azure App Service` step. This will create or update the current configuration of the container.
