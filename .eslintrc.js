@@ -15,6 +15,8 @@ module.exports =  {
   },
   rules:  {
     "@typescript-eslint/explicit-function-return-type": "off",
+    "prefer-const": "error",
+    "no-var": "error"
   },
   settings:  {
     react:  {
