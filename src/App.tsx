@@ -9,10 +9,12 @@ const ListProperties = lazy(() => import('pages/Properties/ListProperties'));
 const ShowProperty = lazy(() => import('pages/Properties/ShowProperty'));
 const NewProperty = lazy(() => import('pages/Properties/NewProperty'));
 const Home = lazy(() => import('pages/Home'));
+const Login = lazy(() => import('pages/Login'));
 const NotFound = lazy(() => import('pages/NotFound'));
 
 const routes = [
   { path: locations.root(), component: Home },
+  { path: locations.login(), component: Login },
   { path: locations.users(), component: Users },
   { path: locations.properties(), component: ListProperties },
   { path: locations.newProperty(), component: NewProperty },

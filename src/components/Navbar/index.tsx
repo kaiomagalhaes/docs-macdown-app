@@ -14,6 +14,9 @@ const Navbar = () => (
     <li>
       <NavLink to={locations.properties()}>Properties</NavLink>
     </li>
+    <li>
+      <NavLink to={locations.login()}>Login</NavLink>
+    </li>
   </ul>
 );
 

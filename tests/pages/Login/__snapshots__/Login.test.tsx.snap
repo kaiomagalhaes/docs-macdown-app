@@ -5,73 +5,97 @@ Object {
   "asFragment": [Function],
   "baseElement": <body>
     <div>
-      <ul>
-        <li>
-          <a
-            aria-current="page"
-            class="active"
-            href="/"
+      <div>
+        <div
+          class="wknzUJdEj4S7i6QDsxnHb undefined"
+        >
+          <div
+            class="_1EkKwEY20nZRqpF1FCC2NA"
           >
-            Home
-          </a>
-        </li>
-        <li>
-          <a
-            href="/users"
+            <label
+              for="username"
+            >
+              Username
+            </label>
+          </div>
+          <div>
+            <input
+              class="_3JactePgEHnTMZrXAXdDHQ undefined"
+              id="username"
+              type="text"
+              value=""
+            />
+          </div>
+        </div>
+        <div
+          class="wknzUJdEj4S7i6QDsxnHb undefined"
+        >
+          <div
+            class="_1EkKwEY20nZRqpF1FCC2NA"
           >
-            Users
-          </a>
-        </li>
-        <li>
-          <a
-            href="/properties"
-          >
-            Properties
-          </a>
-        </li>
-        <li>
-          <a
-            href="/login"
-          >
-            Login
-          </a>
-        </li>
-      </ul>
+            <label
+              for="password"
+            >
+              Password
+            </label>
+          </div>
+          <div>
+            <input
+              class="_3JactePgEHnTMZrXAXdDHQ undefined"
+              id="password"
+              type="text"
+              value=""
+            />
+          </div>
+        </div>
+      </div>
     </div>
   </body>,
   "container": <div>
-    <ul>
-      <li>
-        <a
-          aria-current="page"
-          class="active"
-          href="/"
+    <div>
+      <div
+        class="wknzUJdEj4S7i6QDsxnHb undefined"
+      >
+        <div
+          class="_1EkKwEY20nZRqpF1FCC2NA"
         >
-          Home
-        </a>
-      </li>
-      <li>
-        <a
-          href="/users"
+          <label
+            for="username"
+          >
+            Username
+          </label>
+        </div>
+        <div>
+          <input
+            class="_3JactePgEHnTMZrXAXdDHQ undefined"
+            id="username"
+            type="text"
+            value=""
+          />
+        </div>
+      </div>
+      <div
+        class="wknzUJdEj4S7i6QDsxnHb undefined"
+      >
+        <div
+          class="_1EkKwEY20nZRqpF1FCC2NA"
         >
-          Users
-        </a>
-      </li>
-      <li>
-        <a
-          href="/properties"
-        >
-          Properties
-        </a>
-      </li>
-      <li>
-        <a
-          href="/login"
-        >
-          Login
-        </a>
-      </li>
-    </ul>
+          <label
+            for="password"
+          >
+            Password
+          </label>
+        </div>
+        <div>
+          <input
+            class="_3JactePgEHnTMZrXAXdDHQ undefined"
+            id="password"
+            type="text"
+            value=""
+          />
+        </div>
+      </div>
+    </div>
   </div>,
   "debug": [Function],
   "findAllByAltText": [Function],
