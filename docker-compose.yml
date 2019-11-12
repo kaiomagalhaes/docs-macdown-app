@@ -6,6 +6,9 @@ services:
     stdin_open: true
     build:
       context: .
+      args:
+        - AZURE_REGISTRY_USERNAME=${AZURE_REGISTRY_USERNAME}
+        - AZURE_REGISTRY_PASSWORD=${AZURE_REGISTRY_PASSWORD}
     volumes:
       - .:/share
     env_file:

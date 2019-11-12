@@ -2,6 +2,9 @@
 
 FROM node:10.17-slim as build
 
+ARG AZURE_REGISTRY_USERNAME
+ARG AZURE_REGISTRY_PASSWORD
+
 RUN apt-get update
 
 RUN mkdir -p /app
@@ -10,9 +13,10 @@ WORKDIR /app
 ADD package.json /app/package.json
 ADD package-lock.json /app/package-lock.json
 
-RUN npm install
-
 COPY ./ /app
+
+RUN sh bin/docker/writeAzureRegistry.sh
+RUN npm install
 
 RUN npm run build
 

@@ -5,6 +5,9 @@ services:
     build:
       dockerfile: Dockerfile.production
       context: .
+      args:
+        - AZURE_REGISTRY_USERNAME=${AZURE_REGISTRY_USERNAME}
+        - AZURE_REGISTRY_PASSWORD=${AZURE_REGISTRY_PASSWORD}
     ports:
       - '80:80'
     environment:
