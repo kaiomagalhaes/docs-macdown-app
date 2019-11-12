@@ -25,7 +25,7 @@ const App: React.FC = () => (
   <Router>
     <Navbar />
     <div className={styles.app}>
-      <header className={styles['app-header']}>
+      <div className={styles['app-content']}>
         <Suspense fallback={<div> Loading... </div>}>
           <Switch>
             {routes.map((route, idx) => (
@@ -39,7 +39,7 @@ const App: React.FC = () => (
             <Route component={NotFound} />
           </Switch>
         </Suspense>
-      </header>
+      </div>
     </div>
   </Router>
 );

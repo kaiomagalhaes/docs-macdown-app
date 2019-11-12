@@ -1,17 +1,19 @@
+@import '~@codelitt/ay-css-library/src/components/brand/colors';
+
 .list {
   display: flex;
   justify-content: space-evenly;
   list-style: none;
 
   a {
-    color: black;
-    padding: 10px;
+    color: $ay-navy-blue-color;
+    padding: 0.75rem;
     text-decoration: none;
 
     &:hover {
-      background-color: blue;
-      border-radius: 12px;
-      color: white;
+      background-color: $ay-navy-blue-color;
+      border-radius: 0.75rem;
+      color: $ay-white-color;
     }
   }
 }

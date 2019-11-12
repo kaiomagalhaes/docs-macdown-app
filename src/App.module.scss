@@ -1,11 +1,13 @@
+@import '~@codelitt/ay-css-library/src/components/brand/colors';
+
 .app {
   text-align: center;
 }
 
-.app-header {
+.app-content {
   align-items: center;
-  background-color: #282c34;
-  color: white;
+  background-color: $ay-white-color;
+  color: $ay-navy-blue-color;
   display: flex;
   flex-direction: column;
   font-size: calc(10px + 2vmin);
