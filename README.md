@@ -1,5 +1,22 @@
 # React project starter
 
+- [Intro](#intro)
+- [Running the project](#running-the-project)
+  - [Requirements](#requirements)
+  - [Getting started](#getting-started)
+- [Scripts](#scripts)
+  - [Shell Scripts](#shell-scripts)
+  - [NPM Scripts](#npm-scripts)
+- [Development best practices](#development-best-practices)
+- [Continuous Integration](#continuous-integration)
+  - [Introduction](#introduction)
+  - [Configuration](#configuration)
+- [Continuous Deployment](#continuous-deployment)
+  - [Introduction](#cd-introduction)
+  - [Docker Single Container](#docker-single-container)
+    - [Release Job](#release-job)
+    - [Settings for the container](#settings-for-the-container)
+
 ## 👋 Intro
 
 This is React project starter. Its goal is to offer a simple way to start a new front-end application. It offers:
@@ -18,6 +35,9 @@ This is React project starter. Its goal is to offer a simple way to start a new 
 
 We recommend running this project using [Docker](https://www.docker.com/) and [Docker Compose](https://docs.docker.com/compose/).  
 But if you want to run it by yourself you'll need to have [Node.js](https://nodejs.org/en/download/) installed.
+
+This project uses Codelitt's private NPM packages. Make sure to go through our [Authentication](./AUTHENTICATION.md) 
+section before moving forward.
 
 ### Getting started
 1. Clone the project.
@@ -61,6 +81,14 @@ You can run any NPM script with:
 ```shell
 npm <script>
 ```
+
+## Development best practices
+When developing a new feature for this project make sure to go through the checklist below:
+
+- [x] Aways use `@codelitt/ay-css-library` SCSS variables in colors and fonts.
+- [x] Aways use the components from the `@codelitt/ay-design-library` package. if you need a new component it should be added there.
+- [x] Create tests for every new feature.
+- [x] Make sure to run the lint tool and have enabled git pre-commit hooks.
 
 ## Continuous Integration
 
@@ -109,12 +137,12 @@ For the porpouse of reviewing full azure integration we have setted up a **Azure
 
 ## Continuous Deployment
 
-### Introduction
+### <a name="cd-introduction"></a> Introduction
 
 The deployed app is a NodeJS application, this solution can be deployed in different ways using docker containers or even as basic webapp running node.
 For now we have configured single docker container.
 
-### Docker Single Container.
+### Docker Single Container
 
 The docker single container configuration uses the image configured with the specific tag, applications settings and run it. 
 Is important that the image exposes port 8080 or 80, so this is mapped from the image. This is a limitation of azure.
