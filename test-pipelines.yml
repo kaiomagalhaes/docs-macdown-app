@@ -9,10 +9,9 @@ pool:
   vmImage: 'ubuntu-latest'
 
 steps:
-- task: NodeTool@0
-  inputs:
-    versionSpec: '10.x'
-  displayName: 'Install Node.js'
+- script: |
+    sh bin/docker/writeAzureRegistry.sh
+  displayName: 'Set up NPM'
 
 - script: |
     npm ci
@@ -30,7 +29,7 @@ steps:
   displayName: 'npm build'
 
 - script: |
-    npm test
+    npm run test:ci
     if [ $? -ne 0 ]; then
       exit 1
     fi
