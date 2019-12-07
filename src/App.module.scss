@@ -1,12 +1,8 @@
-@import '~@codelitt/ay-css-library/src/components/brand/colors';
-
 .app {
 }
 
 .app-content {
   align-items: center;
-  background-color: $ay-white-color;
-  color: $ay-navy-blue-color;
   display: flex;
   flex-direction: column;
   font-size: calc(0.6rem + 2vmin);
