@@ -42,7 +42,8 @@
     "prettier:format": "prettier --write \"src/**/*.+(ts|tsx|json|css)\" \"src/**/*.test.ts\"",
     "test": "jest",
     "test:ci": "jest --ci --reporters=jest-junit",
-    "test:watch": "jest --watch"
+    "test:watch": "jest --watch",
+    "postinstall":"tsc"
   },
   "eslintConfig": {
     "extends": "[react-app, plugin:prettier/recommended]"
