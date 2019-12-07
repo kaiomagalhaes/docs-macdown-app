@@ -1,21 +1,20 @@
 import React from 'react';
 import ReactDOM from 'react-dom';
-import ApolloClient from 'apollo-boost';
-import { ApolloProvider } from 'react-apollo';
+
+import { Provider } from 'react-redux';
 
 import App from './App';
 import * as serviceWorker from './serviceWorker';
 import './assets/stylesheets/global.scss';
+import store from './store';
 
-const client = new ApolloClient({
-  uri: process.env.REACT_APP_GRAPHQL_API_URL,
-});
 const Root = () => <App />;
 
 ReactDOM.render(
-  <ApolloProvider client={client}>
+  <Provider store={store}>
     <Root />
-  </ApolloProvider>,
+  </Provider>,
+
   document.getElementById('root'),
 );
 

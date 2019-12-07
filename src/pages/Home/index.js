@@ -5,6 +5,8 @@ import styles from './Home.module.scss';
 import { NavLink } from 'react-router-dom';
 import locations from '../../routes';
 import ReactMarkdown from 'react-markdown';
+import { connect } from 'react-redux';
+import { createFile } from '../../reducers/files.reducer';
 
 export const Context = createContext({});
 
@@ -34,7 +36,7 @@ You can also:
 
 Markdown is a lightweight markup language based on the formatting conventions that people naturally use in email.  As [John Gruber] writes on the [Markdown site][df1]
 `
-const Home = () => {
+const Home = (props) => {
   const [publish, setPublish] = useState(false);
   const [text, setText] = useState(MOCK_DATA);
   const [parser, setParser] = useState(new MarkdownIt())
@@ -57,7 +59,7 @@ const Home = () => {
   return (
     <>
       <div style={{ textAlign: 'right', width: '90vw', marginBottom: '20px', marginTop: '20px' }}>
-        <button onClick={() => setPublish(true)} className={styles.btn}>
+        <button onClick={() => props.createFile(text)} className={styles.btn}>
           Publish
          </button>
       </div>
@@ -72,6 +74,12 @@ const Home = () => {
   )
 }
 
+const mapStateToProps = state => ({
+  ...state
+ })
 
+ const mapDispatchToProps = dispatch => ({
+  createFile: (content) => dispatch(createFile(content))
+ })
 
-export default Home;
+export default connect(mapStateToProps, mapDispatchToProps)(Home);
