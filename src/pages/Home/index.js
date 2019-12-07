@@ -1,4 +1,4 @@
-import React, { createContext, useState } from 'react';
+import React, { createContext, useState, useEffect } from 'react';
 import MdEditor from 'react-markdown-editor-lite';
 import MarkdownIt from 'markdown-it';
 import styles from './Home.module.scss';
@@ -6,7 +6,7 @@ import { NavLink } from 'react-router-dom';
 import locations from '../../routes';
 import ReactMarkdown from 'react-markdown';
 import { connect } from 'react-redux';
-import { createFile } from '../../reducers/files.reducer';
+import { createFile, fetchFile } from '../../reducers/file.reducer';
 
 export const Context = createContext({});
 
@@ -41,6 +41,18 @@ const Home = (props) => {
   const [text, setText] = useState(MOCK_DATA);
   const [parser, setParser] = useState(new MarkdownIt())
 
+  useEffect(() => {
+    async function fetchEverything() {
+      async function fetchFile1() {
+        console.log('pepa pig')
+        const file = await props.fetchFile()
+        setText(file.content);
+      }
+      await Promise.all([fetchFile1()])
+    }
+    fetchEverything();
+  }, 0)
+
   if (publish) {
     return (
       <>
@@ -59,7 +71,10 @@ const Home = (props) => {
   return (
     <>
       <div style={{ textAlign: 'right', width: '90vw', marginBottom: '20px', marginTop: '20px' }}>
-        <button onClick={() => props.createFile(text)} className={styles.btn}>
+        <button onClick={() => {
+          props.createFile(text)
+          setPublish(true)
+        }} className={styles.btn}>
           Publish
          </button>
       </div>
@@ -79,7 +94,8 @@ const mapStateToProps = state => ({
  })
 
  const mapDispatchToProps = dispatch => ({
-  createFile: (content) => dispatch(createFile(content))
+  createFile: (content) => dispatch(createFile(content)),
+  fetchFile: () => dispatch(fetchFile())
  })
 
 export default connect(mapStateToProps, mapDispatchToProps)(Home);
