@@ -3,12 +3,13 @@ import { BrowserRouter as Router, Route, Switch } from 'react-router-dom';
 import styles from './App.module.scss';
 import locations from 'routes';
 
-const Home = lazy(() => import('pages/Home'));
-const MDView = lazy(() => import('pages/MDView'));
+const EditFilePage = lazy(() => import('pages/EditFilePage'));
+const ShowFilePage = lazy(() => import('pages/ShowFilePage'));
 
 const routes = [
-  { path: locations.root(), component: Home },
-  { path: locations.mdview(), component: MDView },
+  { path: locations.getEditFilePath(), component: EditFilePage },
+  { path: locations.getNewFilePath(), component: EditFilePage },
+  { path: locations.getShowFilePath(), component: ShowFilePage },
 ];
 
 const App: React.FC = () => (
