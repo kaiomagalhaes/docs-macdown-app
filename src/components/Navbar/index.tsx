@@ -6,16 +6,7 @@ import locations from '../../routes';
 const Navbar = () => (
   <ul className={styles['list']}>
     <li>
-      <NavLink to={locations.root()}>Home</NavLink>
-    </li>
-    <li>
-      <NavLink to={locations.users()}>Users</NavLink>
-    </li>
-    <li>
-      <NavLink to={locations.properties()}>Properties</NavLink>
-    </li>
-    <li>
-      <NavLink to={locations.login()}>Login</NavLink>
+      <NavLink to={locations.root()}>Publish</NavLink>
     </li>
   </ul>
 );

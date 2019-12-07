@@ -1,29 +1,18 @@
 import React, { lazy, Suspense } from 'react';
 import { BrowserRouter as Router, Route, Switch } from 'react-router-dom';
-import Navbar from './components/Navbar';
 import styles from './App.module.scss';
-import locations, { ID_PATH_PARAM } from 'routes';
+import locations from 'routes';
 
-const Users = lazy(() => import('pages/Users'));
-const ListProperties = lazy(() => import('pages/Properties/ListProperties'));
-const ShowProperty = lazy(() => import('pages/Properties/ShowProperty'));
-const NewProperty = lazy(() => import('pages/Properties/NewProperty'));
 const Home = lazy(() => import('pages/Home'));
-const Login = lazy(() => import('pages/Login'));
-const NotFound = lazy(() => import('pages/NotFound'));
+const MDView = lazy(() => import('pages/MDView'));
 
 const routes = [
   { path: locations.root(), component: Home },
-  { path: locations.login(), component: Login },
-  { path: locations.users(), component: Users },
-  { path: locations.properties(), component: ListProperties },
-  { path: locations.newProperty(), component: NewProperty },
-  { path: locations.showProperty(ID_PATH_PARAM), component: ShowProperty },
+  { path: locations.mdview(), component: MDView },
 ];
 
 const App: React.FC = () => (
   <Router>
-    <Navbar />
     <div className={styles.app}>
       <div className={styles['app-content']}>
         <Suspense fallback={<div> Loading... </div>}>
@@ -36,7 +25,6 @@ const App: React.FC = () => (
                 component={route.component}
               />
             ))}
-            <Route component={NotFound} />
           </Switch>
         </Suspense>
       </div>
