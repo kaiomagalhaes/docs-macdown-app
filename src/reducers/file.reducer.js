@@ -6,7 +6,7 @@ const filesSlice = createSlice({
   name: 'file',
   initialState: {},
   reducers: {
-    getFiles(state, action) {
+    getFile(state, action) {
       return action.payload;
     }
   }
@@ -16,14 +16,14 @@ export const fetchFile = (id) => async dispatch => {
   const file = await fetch(`${URL}/${id}`)
     .then(data => data.json())
     
-  dispatch(getFiles(file))
+  dispatch(getFile(file))
 }
 
 
 // Extract the action creators object and the reducer
 const { actions, reducer } = filesSlice;
 // Extract and export each action creator by name
-const { getFiles } = actions;
+const { getFile } = actions;
 
 export const createFile = (content) => async dispatch => {
   const file = await fetch(URL, {
@@ -38,7 +38,7 @@ export const createFile = (content) => async dispatch => {
     })
   }).then(data => data.json());
 
-  dispatch(getFiles(file))
+  dispatch(getFile(file))
 };
 
 export const updateFile = (id, content) => async dispatch => {
@@ -53,9 +53,8 @@ export const updateFile = (id, content) => async dispatch => {
       name: 'nice name'
     })
   }).then(data => data.json());
-  console.log('lala', file)
 
-  dispatch(getFiles(file))
+  dispatch(getFile(file))
 };
 // Export the reducer, either as a default or named export
 export default reducer
