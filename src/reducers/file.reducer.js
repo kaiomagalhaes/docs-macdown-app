@@ -1,4 +1,5 @@
 import { createSlice } from '@reduxjs/toolkit';
+import { listFiles } from './files.reducer';
 
 const URL = 'https://docs-macdown-api.herokuapp.com/files';
 
@@ -25,7 +26,8 @@ const { actions, reducer } = filesSlice;
 // Extract and export each action creator by name
 const { getFile } = actions;
 
-export const createFile = (content) => async dispatch => {
+export const createFile = (name, content) => async dispatch => {
+  console.log(name, content)
   const file = await fetch(URL, {
     method: 'POST',
     mode: 'cors',
@@ -34,14 +36,15 @@ export const createFile = (content) => async dispatch => {
     },
     body: JSON.stringify({
       content,
-      name: 'nice name'
+      name
     })
   }).then(data => data.json());
 
   dispatch(getFile(file))
+  dispatch(listFiles())
 };
 
-export const updateFile = (id, content) => async dispatch => {
+export const updateFile = (id, name, content) => async dispatch => {
   const file = await fetch(`${URL}/${id}`, {
     method: 'PATCH',
     mode: 'cors',
@@ -50,11 +53,12 @@ export const updateFile = (id, content) => async dispatch => {
     },
     body: JSON.stringify({
       content,
-      name: 'nice name'
+      name
     })
   }).then(data => data.json());
 
   dispatch(getFile(file))
+  dispatch(listFiles())
 };
 // Export the reducer, either as a default or named export
 export default reducer

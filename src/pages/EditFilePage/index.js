@@ -13,136 +13,70 @@ import { fetchFile, createFile, updateFile } from '../../reducers/file.reducer';
 import { listFiles } from '../../reducers/files.reducer';
 import { MOCK_DATA } from './mock.data';
 import FileExplorerTheme from 'react-sortable-tree-theme-file-explorer';
-
+import FileTreeView from '../../components/FileTreeView';
 
 export const Context = createContext({});
-
-const firstNames = [
-  'Abraham',
-  'Adam',
-  'Agnar',
-  'Albert',
-  'Albin',
-  'Albrecht',
-  'Alexander',
-  'Alfred',
-  'Alvar',
-  'Ander',
-  'Andrea',
-  'Arthur',
-  'Axel',
-  'Bengt',
-  'Bernhard',
-  'Carl',
-  'Daniel',
-  'Einar',
-  'Elmer',
-  'Eric',
-  'Erik',
-  'Gerhard',
-  'Gunnar',
-  'Gustaf',
-  'Harald',
-  'Herbert',
-  'Herman',
-  'Johan',
-  'John',
-  'Karl',
-  'Leif',
-  'Leonard',
-  'Martin',
-  'Matt',
-  'Mikael',
-  'Nikla',
-  'Norman',
-  'Oliver',
-  'Olof',
-  'Olvir',
-  'Otto',
-  'Patrik',
-  'Peter',
-  'Petter',
-  'Robert',
-  'Rupert',
-  'Sigurd',
-  'Simon',
-];
 
 const EditFilePage = (props) => {
   const { id } = props.match.params;
   const [text, setText] = useState(MOCK_DATA);
+  const [fileName, setFileName] = useState('')
   const [parser, setParser] = useState(new MarkdownIt())
   const { file } = props;
-
-  const defaultState = [{ title: 'Peter Olofsson' }, { title: 'Karl Johansson' }]
-
-  const [ treeData, setTreeData ] = useState(defaultState);
-  const [ addAsFirstChild, setAddAsFirstChild ] = useState(false)
-
-  const getNodeKey = ({ treeIndex }) => treeIndex;
-  const getRandomName = () => firstNames[Math.floor(Math.random() * firstNames.length)];
 
   useEffect(() => {
     if (id && !file.id) {
       props.fetchFile(id);
     } else if(file.id) {
+      console.log('yo')
       setText(file.content);
+      setFileName(file.name)
       props.history.push(`/files/${file.id}/edit`)
     }
   }, [file.id])
 
-useEffect(() => {
-  props.listFiles();
-  setTreeData([{title: 'docs', expanded: true, children: props.files.map(file => ({...file, title: file.name}))}])
-}, [props.files.length])
+  useEffect(() => {
+    props.listFiles();
+  }, [])
 
   return (
     <>
       <div style={{ textAlign: 'right', width: '90vw', marginBottom: '20px', marginTop: '20px' }}>
+        <input
+          type="text"
+          value={fileName}
+          onChange={(e) => setFileName(e.target.value)}
+        />
         <Link style={{ marginRight: '20px', display: id ? 'inline-block' : 'none' }} className={styles.btn} to={`/files/${file.id}`}>See Online</Link>
         <button onClick={() => {
           if (id) {
-            props.updateFile(id, text)
+            props.updateFile(id, fileName, text)
           } else {
-            props.createFile(text)
+            props.createFile(fileName, text)
           }
         }} className={styles.btn}>
-          Publish
+          Save
        </button>
       </div>
       <div style={{ display: 'flex' }}>
-
-          <div style={{ height: '90vh', width: '15vw' }}>
-            <SortableTree
-              theme={FileExplorerTheme}
-              treeData={treeData}
-              onChange={treeData => setTreeData(treeData)}
-              canDrag={false}
-              generateNodeProps={({ node, path }) => ({
-                buttons: [
-                  node.title === 'docs' ? 
-                  <button
-                    onClick={() =>
-                      setTreeData(
-                        addNodeUnderParent({
-                          treeData: treeData,
-                          parentKey: path[path.length - 1],
-                          expandParent: true,
-                          getNodeKey,
-                          newNode: {
-                            title: 'new document',
-                          },
-                          addAsFirstChild: addAsFirstChild,
-                        }).treeData
-                      )
-                    }
-                  >
-                    Create document
-                </button> : null
-                ],
-              })}
-            />
-      </div>
+        <div style={{ height: '90vh', width: '15vw' }}>
+          <FileTreeView
+            files={props.files}
+            createFile={(name) => {
+              props.createFile(name, 'banana')
+              setText('')
+              setFileName(name)
+            }}
+            onSelectFile={(file) => {
+              if (file.title !== 'docs') {
+                console.log('on select file', file)
+                props.history.push(`/files/${file.id}/edit`)
+                setText(file.content)
+                setFileName(file.name)
+              }
+            }}
+          />
+        </div>
         <div style={{ height: '90vh', width: '80vw' }}>
           <MdEditor
             value={text}
@@ -162,8 +96,8 @@ const mapStateToProps = state => ({
 const mapDispatchToProps = dispatch => ({
   listFiles: () => dispatch(listFiles()),
   fetchFile: (id) => dispatch(fetchFile(id)),
-  createFile: (content) => dispatch(createFile(content)),
-  updateFile: (id, content) => dispatch(updateFile(id, content)),
+  createFile: (name, content) => dispatch(createFile(name, content)),
+  updateFile: (id, name, content) => dispatch(updateFile(id, name, content)),
 })
 
 export default connect(mapStateToProps, mapDispatchToProps)(EditFilePage);
