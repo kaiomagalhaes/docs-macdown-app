@@ -1,7 +1,9 @@
 import React, { lazy, Suspense } from 'react';
 import { BrowserRouter as Router, Route, Switch } from 'react-router-dom';
-import styles from './App.module.scss';
 import locations from 'routes';
+import Navbar from "./components/Navbar";
+import { ThemeProvider } from '@material-ui/core/styles';
+import codelittTheme from './codelittMaterialTheme';
 
 const EditFilePage = lazy(() => import('pages/EditFilePage'));
 const ShowFilePage = lazy(() => import('pages/ShowFilePage'));
@@ -14,22 +16,21 @@ const routes = [
 
 const App: React.FC = () => (
   <Router>
-    <div className={styles.app}>
-      <div className={styles['app-content']}>
-        <Suspense fallback={<div> Loading... </div>}>
-          <Switch>
-            {routes.map((route, idx) => (
-              <Route
-                key={idx}
-                path={route.path}
-                exact
-                component={route.component}
-              />
-            ))}
-          </Switch>
-        </Suspense>
-      </div>
-    </div>
+    <ThemeProvider theme={codelittTheme}>
+      <Navbar />
+      <Suspense fallback={<div> Loading... </div>}>
+        <Switch>
+          {routes.map((route, idx) => (
+            <Route
+              key={idx}
+              path={route.path}
+              exact
+              component={route.component}
+            />
+          ))}
+        </Switch>
+      </Suspense>
+    </ThemeProvider>
   </Router>
 );
 
