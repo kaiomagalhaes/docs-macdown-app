@@ -111,7 +111,7 @@ const ShowFilePage = (props) => {
             </Grid>
           </Grid>
           <Grid container spacing={3}>
-            <Hidden only={['lg', 'md']}>
+            <Hidden mdUp>
               <Grid item xs={12}>
                 <ExpansionPanel>
                   <ExpansionPanelSummary
@@ -136,7 +136,7 @@ const ShowFilePage = (props) => {
               </Paper>
             </Grid>
 
-            <Hidden only={['sm', 'xl', 'xs']}>
+            <Hidden smDown>
               <Grid item xs={12} md={4}>
                 <Sticky topOffset={80}>
                   {({style}) => (
