@@ -19,6 +19,7 @@ import {
 import ExpandMoreIcon from '@material-ui/icons/ExpandMore';
 import {StickyContainer, Sticky} from 'react-sticky';
 import classnames from 'classnames';
+import ScrollableAnchor from 'react-scrollable-anchor'
 
 const ShowFilePage = (props) => {
   const {id} = props.match.params;
@@ -77,7 +78,9 @@ const ShowFilePage = (props) => {
     return (
       <div className={styles['md-heading']}>
         <a href={`#${slug}`} className={styles['md-heading-anchor']}/>
-        {React.createElement('h' + props.level, {id: slug, className: styles['md-heading-title']}, props.children)}
+        <ScrollableAnchor id={slug}>
+          {React.createElement('h' + props.level, {id: slug, className: styles['md-heading-title']}, props.children)}
+        </ScrollableAnchor>
       </div>
     )
   };
