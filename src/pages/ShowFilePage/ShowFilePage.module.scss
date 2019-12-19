@@ -52,3 +52,32 @@
     }
   }
 }
+
+.list-item-h1 {
+  list-style: disc;
+}
+
+.list-item-h2 {
+  list-style: circle;
+  margin-left: 0.75rem;
+}
+
+.list-item-h3 {
+  list-style: square;
+  margin-left: 1.5rem;
+}
+
+.list-item-h4 {
+  list-style: square;
+  margin-left: 2.25rem;
+}
+
+.list-item-h5 {
+  list-style: square;
+  margin-left: 3rem;
+}
+
+.list-item-h6 {
+  list-style: square;
+  margin-left: 3.75rem;
+}

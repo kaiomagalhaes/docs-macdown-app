@@ -16,6 +16,8 @@ const ShowFilePage = (props) => {
   const [parser, setParser] = useState(new MarkdownIt());
   const [slugs, setSlugs] = useState([]);
 
+  let headingsFound = 0;
+
   useEffect(() => {
     props.fetchFile(id)
   }, [0])
@@ -25,11 +27,14 @@ const ShowFilePage = (props) => {
       return '';
     }
 
-    // @TODO - find a way to order the links and handle the levels (h1, h2, h3...)
-    return slugs.map(({slug, content}) => {
+    slugs.sort((a, b) => (a.order > b.order) ? 1 : ((b.order > a.order) ? -1 : 0));
+
+    return slugs.map(({slug, content, level}) => {
       return (
-        <li key={slug}>
-          <a href={`#${slug}`}>{content}</a>
+        <li key={slug} className={styles[`list-item-h${level}`]}>
+          <Link href={`#${slug}`}>
+            {content}
+          </Link>
         </li>
       )
     })
@@ -44,7 +49,7 @@ const ShowFilePage = (props) => {
   const addSlug = (slug, headingProps) => {
     const found = slugs.some(el => el.slug === slug);
     if (!found) {
-      setSlugs(slugs.concat({slug: slug, content: headingProps.children, level: headingProps.level}));
+      setSlugs(slugs.concat({slug: slug, content: headingProps.children, level: headingProps.level, order: headingsFound++}));
     }
   };
 
