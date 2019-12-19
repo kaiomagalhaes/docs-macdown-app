@@ -4,6 +4,15 @@
   padding: 1rem;
 }
 
+.table-of-contents {
+  max-height: 100vh;
+  overflow: auto;
+}
+
+.table-of-contents-expandable {
+  margin: 0;
+}
+
 .breadcrumb-heading {
   display: inline-block;
   padding-right: 0.5rem;

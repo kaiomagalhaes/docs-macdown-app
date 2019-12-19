@@ -1,15 +1,24 @@
-import React, {createContext, useEffect, useState} from 'react';
+import React, {useEffect, useState} from 'react';
 import MarkdownIt from 'markdown-it';
 import styles from './ShowFilePage.module.scss';
 import ReactMarkdown from 'react-markdown';
 import {connect} from 'react-redux';
 import {fetchFile} from '../../reducers/file.reducer';
-import Container from "@material-ui/core/Container";
-import Grid from "@material-ui/core/Grid";
-import Paper from "@material-ui/core/Paper";
-import Breadcrumbs from "@material-ui/core/Breadcrumbs";
-import Link from "@material-ui/core/Link";
-import Typography from "@material-ui/core/Typography";
+import {
+  Container,
+  Grid,
+  Paper,
+  Breadcrumbs,
+  Link,
+  Typography,
+  Hidden,
+  ExpansionPanel,
+  ExpansionPanelSummary,
+  ExpansionPanelDetails,
+} from "@material-ui/core";
+import ExpandMoreIcon from '@material-ui/icons/ExpandMore';
+import {StickyContainer, Sticky} from 'react-sticky';
+import classnames from 'classnames';
 
 const ShowFilePage = (props) => {
   const {id} = props.match.params;
@@ -49,7 +58,12 @@ const ShowFilePage = (props) => {
   const addSlug = (slug, headingProps) => {
     const found = slugs.some(el => el.slug === slug);
     if (!found) {
-      setSlugs(slugs.concat({slug: slug, content: headingProps.children, level: headingProps.level, order: headingsFound++}));
+      setSlugs(slugs.concat({
+        slug: slug,
+        content: headingProps.children,
+        level: headingProps.level,
+        order: headingsFound++
+      }));
     }
   };
 
@@ -62,7 +76,7 @@ const ShowFilePage = (props) => {
 
     return (
       <div className={styles['md-heading']}>
-        <a href={`#${slug}`} className={styles['md-heading-anchor']} />
+        <a href={`#${slug}`} className={styles['md-heading-anchor']}/>
         {React.createElement('h' + props.level, {id: slug, className: styles['md-heading-title']}, props.children)}
       </div>
     )
@@ -74,52 +88,76 @@ const ShowFilePage = (props) => {
         {props.file.name}
       </div>
 
-      <Container maxWidth="lg">
-        <Grid container spacing={3}>
-          <Grid item xs={12}>
-            <Paper className={styles.paper}>
-              <Typography color="textPrimary" className={styles['breadcrumb-heading']}>You are here:</Typography>
-              <Breadcrumbs aria-label="breadcrumb" className={styles.breadcrumb}>
-                <Link color="inherit" href="#">
-                  {/* @TODO - update links */}
-                  All
-                </Link>
+      <StickyContainer>
+        <Container maxWidth="lg">
+          <Grid container spacing={3}>
+            <Grid item xs={12}>
+              <Paper className={styles.paper}>
+                <Typography color="textPrimary" className={styles['breadcrumb-heading']}>You are here:</Typography>
+                <Breadcrumbs aria-label="breadcrumb" className={styles.breadcrumb}>
+                  <Link color="inherit" href="#">
+                    {/* @TODO - update links */}
+                    All
+                  </Link>
 
-                <Link color="inherit" href="#">
-                  {/* @TODO - get the folder name */}
-                  Folder name
-                </Link>
+                  <Link color="inherit" href="#">
+                    {/* @TODO - get the folder name */}
+                    Folder name
+                  </Link>
 
-                <Typography color="textPrimary">{props.file.name}</Typography>
-              </Breadcrumbs>
-            </Paper>
+                  <Typography color="textPrimary">{props.file.name}</Typography>
+                </Breadcrumbs>
+              </Paper>
+            </Grid>
           </Grid>
-        </Grid>
-        <Grid container spacing={3}>
-          <Grid item xs={12} md={8}>
-            <Paper className={styles.paper}>
-              <ReactMarkdown
-                renderers={{heading: headingRenderer}}
-                source={props.file.content}
-              />
-            </Paper>
-          </Grid>
-          <Grid item xs={12} md={4}>
-            <Paper className={styles.paper}>
-              <h2>
-                On this page
-              </h2>
+          <Grid container spacing={3}>
+            <Hidden only={['lg', 'md']}>
+              <Grid item xs={12}>
+                <ExpansionPanel>
+                  <ExpansionPanelSummary
+                    expandIcon={<ExpandMoreIcon />}>
+                    <h2 className={styles['table-of-contents-expandable']}>On this page</h2>
+                  </ExpansionPanelSummary>
+                  <ExpansionPanelDetails>
+                    <ul>
+                      {renderSlugs()}
+                    </ul>
+                  </ExpansionPanelDetails>
+                </ExpansionPanel>
+              </Grid>
+            </Hidden>
 
-              <ul>
-                {renderSlugs()}
-              </ul>
-            </Paper>
+            <Grid item xs={12} md={8}>
+              <Paper className={styles.paper}>
+                <ReactMarkdown
+                  renderers={{heading: headingRenderer}}
+                  source={props.file.content}
+                />
+              </Paper>
+            </Grid>
+
+            <Hidden only={['sm', 'xl', 'xs']}>
+              <Grid item xs={12} md={4}>
+                <Sticky topOffset={80}>
+                  {({style}) => (
+                    <Paper style={style} className={classnames(styles.paper, styles['table-of-contents'])}>
+                      <h2>
+                        On this page
+                      </h2>
+
+                      <ul>
+                        {renderSlugs()}
+                      </ul>
+                    </Paper>
+                  )}
+                </Sticky>
+              </Grid>
+            </Hidden>
           </Grid>
-        </Grid>
-      </Container>
+        </Container>
+      </StickyContainer>
 
     </React.Fragment>
-
   )
 }
 
