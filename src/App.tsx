@@ -11,9 +11,9 @@ const LoginPage = lazy(() => import('pages/LoginPage'));
 
 const routes = [
   { path: locations.getLoginPath(), component: LoginPage, isPublic: true },
-  { path: locations.getShowFilePath(), component: ShowFilePage, isPublic: true },
-  { path: locations.getEditFilePath(), component: EditFilePage, isPublic: false },
   { path: locations.getNewFilePath(), component: EditFilePage, isPublic: false },
+  { path: locations.getEditFilePath(), component: EditFilePage, isPublic: false },
+  { path: locations.getShowFilePath(), component: ShowFilePage, isPublic: true },
 ];
 
 const App: React.FC = () => (
