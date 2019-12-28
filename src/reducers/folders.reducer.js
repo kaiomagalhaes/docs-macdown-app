@@ -24,7 +24,7 @@ export const listFolders = () => async dispatch => {
 }
 
 export const createFolder = ({ name }) => async dispatch => {
-  await axiosInstance.post(`admin/${BASE_PATH}`, { name })
+  await axiosInstance.post(`admin/${BASE_PATH}`, { folder: { name } })
   dispatch(listFolders())
 };
 

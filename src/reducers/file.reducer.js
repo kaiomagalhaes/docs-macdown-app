@@ -25,21 +25,21 @@ const { actions, reducer } = filesSlice;
 const { getFile } = actions;
 
 export const createFile = ({ content, name, folder_id }) => async dispatch => {
-  const response = await axiosInstance.post(`admin/${BASE_PATH}`, {
-    content,
-    name,
-    folder_id
-  });
+  const response = await axiosInstance.post(`admin/${BASE_PATH}`, { document: {
+      content,
+      name,
+      folder_id
+    }});
 
   dispatch(getFile(response.data));
   dispatch(listFolders())
 };
 
 export const updateFile = (id, name, content) => async dispatch => {
-  const response = await axiosInstance.patch(`admin/${BASE_PATH}/${id}`, {
+  const response = await axiosInstance.patch(`admin/${BASE_PATH}/${id}`, {document: {
     content,
     name,
-  });
+  }});
 
   dispatch(getFile(response.data));
   dispatch(listFolders())
