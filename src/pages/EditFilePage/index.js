@@ -7,7 +7,7 @@ import { NavLink } from 'react-router-dom';
 import locations from '../../routes';
 import ReactMarkdown from 'react-markdown';
 import { connect } from 'react-redux';
-import {Treebeard} from 'react-treebeard';
+import { Treebeard } from 'react-treebeard';
 import SortableTree, { addNodeUnderParent, removeNodeAtPath } from 'react-sortable-tree';
 import { fetchFile, createFile, updateFile } from '../../reducers/file.reducer';
 import { listFiles } from '../../reducers/files.reducer';
@@ -15,6 +15,7 @@ import { MOCK_DATA } from './mock.data';
 import FileExplorerTheme from 'react-sortable-tree-theme-file-explorer';
 import FileTreeView from '../../components/FileTreeView';
 import Navbar from '../../components/Navbar';
+import { TextField } from "@material-ui/core";
 
 export const Context = createContext({});
 
@@ -28,7 +29,7 @@ const EditFilePage = (props) => {
   useEffect(() => {
     if (id && !file.id) {
       props.fetchFile(id);
-    } else if(file.id) {
+    } else if (file.id) {
       console.log('yo')
       setText(file.content);
       setFileName(file.name)
@@ -63,16 +64,11 @@ const EditFilePage = (props) => {
 
   return (
     <>
-    <Navbar buttons={navbarButtons}/>
+      <Navbar buttons={navbarButtons} />
       <div style={{ textAlign: 'right', width: '90vw', marginBottom: '20px', marginTop: '20px' }}>
-        <input
-          type="text"
-          value={fileName}
-          onChange={(e) => setFileName(e.target.value)}
-        />
       </div>
       <div style={{ display: 'flex' }}>
-        <div style={{ height: '90vh', width: '15vw' }}>
+        <div style={{ height: '85vh', width: '15vw' }}>
           <FileTreeView
             files={props.files}
             createFile={(name) => {
@@ -90,7 +86,12 @@ const EditFilePage = (props) => {
             }}
           />
         </div>
-        <div style={{ height: '90vh', width: '80vw' }}>
+        <div style={{ height: '80vh', width: '80vw' }}>
+          <TextField
+            label="File name"
+            value={fileName}
+            onChange={(e) => setFileName(e.target.value)}
+          />
           <MdEditor
             value={text}
             renderHTML={(text) => parser.render(text)}
