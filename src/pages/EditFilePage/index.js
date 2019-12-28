@@ -10,7 +10,6 @@ import { connect } from 'react-redux';
 import { Treebeard } from 'react-treebeard';
 import SortableTree, { addNodeUnderParent, removeNodeAtPath } from 'react-sortable-tree';
 import { fetchFile, createFile, updateFile } from '../../reducers/file.reducer';
-import { listFiles } from '../../reducers/files.reducer';
 import { MOCK_DATA } from './mock.data';
 import FileExplorerTheme from 'react-sortable-tree-theme-file-explorer';
 import FileTreeView from '../../components/FileTreeView';
@@ -73,9 +72,9 @@ const EditFilePage = (props) => {
         <div className={styles['tree-container']}>
           <div className={styles['title-container']}>
             <span className={styles.title}>Documents</span>
-            <Button color="secondary"  onClick={(name) => {
+            <Button color="secondary" onClick={() => {
               props.createFolder({
-                name
+                name: 'New Folder'
               })
             }}>
               Create folder
@@ -83,27 +82,23 @@ const EditFilePage = (props) => {
           </div>
           <FileTreeView
             folders={props.folders}
-            createFile={(name) => {
+            createFile={(folderId) => {
               props.createFile({
-                name,
-                content: '',
-                folder_id: 1
+                name: 'New File',
+                content: MOCK_DATA,
+                folder_id: folderId
               })
               setText('')
-              setFileName(name)
+              setFileName('New File')
             }}
-            createFolder={() => {}}
             onSelectFile={(file) => {
-              if (file.title !== 'docs') {
-                console.log('on select file', file)
-                props.history.push(`/files/${file.id}/edit`)
-                setText(file.content)
-                setFileName(file.name)
-              }
+              props.history.push(`/files/${file.id}/edit`)
+              setText(file.content)
+              setFileName(file.name)
             }}
           />
         </div>
-        <div style={{ height: '80vh', width: '80vw' }}>
+        <div className={styles['editor-container']}>
           <TextField
             label="File name"
             value={fileName}
@@ -125,9 +120,8 @@ const mapStateToProps = state => ({
 })
 
 const mapDispatchToProps = dispatch => ({
-  listFiles: () => dispatch(listFiles()),
   fetchFile: (id) => dispatch(fetchFile(id)),
-  createFile: (name, content) => dispatch(createFile(name, content)),
+  createFile: (file) => dispatch(createFile(file)),
   updateFile: (id, name, content) => dispatch(updateFile(id, name, content)),
   createFolder: (folder) => dispatch(createFolder(folder)),
   listFolders: () => dispatch(listFolders())

@@ -1,7 +1,6 @@
 .tree-container {
-  padding: 16px;
+  padding: 26px 16px;
   box-sizing: border-box;
-  padding: 16px;
   height: 85vh;
   width: 15vw;
 
@@ -13,4 +12,10 @@
       font-size: 0.875rem;
     }
   }
+}
+
+.editor-container {
+  margin-top: 10px;
+  height: 80vh;
+  width: 80vw;
 }

@@ -1,5 +1,5 @@
 import { createSlice } from '@reduxjs/toolkit';
-import { listFiles } from './files.reducer';
+import { listFolders } from './folders.reducer';
 
 const URL = `${process.env.REACT_APP_API_URL}/documents`;
 
@@ -26,7 +26,7 @@ const { actions, reducer } = filesSlice;
 // Extract and export each action creator by name
 const { getFile } = actions;
 
-export const createFile = ({content, name, folder_id}) => async dispatch => {
+export const createFile = ({ content, name, folder_id }) => async dispatch => {
   const file = await fetch(URL, {
     method: 'POST',
     mode: 'cors',
@@ -41,7 +41,7 @@ export const createFile = ({content, name, folder_id}) => async dispatch => {
   }).then(data => data.json());
 
   dispatch(getFile(file))
-  dispatch(listFiles())
+  dispatch(listFolders())
 };
 
 export const updateFile = (id, name, content) => async dispatch => {
@@ -58,7 +58,7 @@ export const updateFile = (id, name, content) => async dispatch => {
   }).then(data => data.json());
 
   dispatch(getFile(file))
-  dispatch(listFiles())
+  dispatch(listFolders())
 };
 // Export the reducer, either as a default or named export
 export default reducer
