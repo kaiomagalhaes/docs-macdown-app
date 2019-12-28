@@ -11,6 +11,8 @@ import Navbar from "../../components/Navbar";
 import {listFolders} from "../../reducers/folders.reducer";
 import connect from "react-redux/es/connect/connect";
 import styles from './HomePage.module.scss';
+import {Link} from "@material-ui/core";
+import locations from "../../routes";
 
 const HomePage = (props) => {
   const [isLoadingFolders, setIsLoadingFolders] = useState(true);
@@ -79,11 +81,8 @@ const HomePage = (props) => {
                     </Typography>
                   </CardContent>
                   <CardActions>
-                    <Button size="small" color="primary">
+                    <Button size="small" color="primary" href={locations.getShowFolderPath(folder.id)}>
                       View
-                    </Button>
-                    <Button size="small" color="primary">
-                      Edit
                     </Button>
                   </CardActions>
                 </Card>

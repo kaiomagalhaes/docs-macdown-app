@@ -6,11 +6,12 @@ import codelittLogo from '../../assets/images/codelitt-logo.svg'
 import { Link } from "@material-ui/core";
 
 import styles from './Navbar.module.scss';
+import locations from "../../routes";
 
 const Navbar = ({ buttons, color }) => (
   <AppBar position="static" color={color || 'inherit'}>
     <Toolbar className={styles.nav}>
-      <Link href='#'>
+      <Link href={locations.getHomePath()}>
         <img src={codelittLogo} alt='Codelitt' />
       </Link>
       <div>

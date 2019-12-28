@@ -1,12 +1,13 @@
 import React, { lazy, Suspense } from 'react';
 import { BrowserRouter as Router, Switch } from 'react-router-dom';
-import locations from 'routes';
+import locations, {ID_PATH_PARAM} from 'routes';
 import { ThemeProvider } from '@material-ui/core/styles';
 import codelittTheme from './codelittMaterialTheme';
 import { ProtectedRoute } from './components/ProtectedRoute';
 
 const EditFilePage = lazy(() => import('pages/EditFilePage'));
 const ShowFilePage = lazy(() => import('pages/ShowFilePage'));
+const ShowFolderPage = lazy(() => import('pages/ShowFolderPage'));
 const LoginPage = lazy(() => import('pages/LoginPage'));
 const HomePage = lazy(() => import('pages/HomePage'));
 
@@ -26,6 +27,11 @@ const routes = [
   {
     path: locations.getShowFilePath(),
     component: ShowFilePage,
+    isPublic: true,
+  },
+  {
+    path: locations.getShowFolderPath(ID_PATH_PARAM),
+    component: ShowFolderPage,
     isPublic: true,
   },
 ];
