@@ -1,7 +1,8 @@
 import { createSlice } from '@reduxjs/toolkit';
 import { listFolders } from './folders.reducer';
+import axiosInstance from "../axiosInstance";
 
-const URL = `${process.env.REACT_APP_API_URL}/documents`;
+const BASE_PATH = `documents`;
 
 const filesSlice = createSlice({
   name: 'file',
@@ -11,15 +12,12 @@ const filesSlice = createSlice({
       return action.payload;
     }
   }
-})
+});
 
 export const fetchFile = (id) => async dispatch => {
-  const file = await fetch(`${URL}/${id}`)
-    .then(data => data.json())
-    
-  dispatch(getFile(file))
-}
-
+  const response = await axiosInstance.get(`${BASE_PATH}/${id}`)
+  dispatch(getFile(response.data))
+};
 
 // Extract the action creators object and the reducer
 const { actions, reducer } = filesSlice;
@@ -27,37 +25,23 @@ const { actions, reducer } = filesSlice;
 const { getFile } = actions;
 
 export const createFile = ({ content, name, folder_id }) => async dispatch => {
-  const file = await fetch(URL, {
-    method: 'POST',
-    mode: 'cors',
-    headers: {
-      'Content-Type': 'application/json'
-    },
-    body: JSON.stringify({
-      content,
-      name,
-      folder_id
-    })
-  }).then(data => data.json());
+  const response = await axiosInstance.post(`admin/${BASE_PATH}`, {
+    content,
+    name,
+    folder_id
+  });
 
-  dispatch(getFile(file))
+  dispatch(getFile(response.data));
   dispatch(listFolders())
 };
 
 export const updateFile = (id, name, content) => async dispatch => {
-  const file = await fetch(`${URL}/${id}`, {
-    method: 'PATCH',
-    mode: 'cors',
-    headers: {
-      'Content-Type': 'application/json'
-    },
-    body: JSON.stringify({
-      content,
-      name
-    })
-  }).then(data => data.json());
+  const response = await axiosInstance.patch(`admin/${BASE_PATH}/${id}`, {
+    content,
+    name,
+  });
 
-  dispatch(getFile(file))
+  dispatch(getFile(response.data));
   dispatch(listFolders())
 };
 // Export the reducer, either as a default or named export
