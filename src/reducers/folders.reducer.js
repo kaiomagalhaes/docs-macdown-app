@@ -1,6 +1,7 @@
 import { createSlice } from '@reduxjs/toolkit';
+import axiosInstance from "../axiosInstance";
 
-const URL = `${process.env.REACT_APP_API_URL}/folders`;
+const BASE_PATH = `folders`;
 
 const foldersSlice = createSlice({
   name: 'folder',
@@ -18,24 +19,12 @@ const { actions, reducer } = foldersSlice;
 const { getFolders } = actions;
 
 export const listFolders = () => async dispatch => {
-  const files = await fetch(`${URL}`)
-    .then(data => data.json())
-    
-  dispatch(getFolders(files))
+  const response = await axiosInstance.get(BASE_PATH)
+  dispatch(getFolders(response.data))
 }
 
 export const createFolder = ({ name }) => async dispatch => {
-  const folder = await fetch(URL, {
-    method: 'POST',
-    mode: 'cors',
-    headers: {
-      'Content-Type': 'application/json'
-    },
-    body: JSON.stringify({
-      name
-    })
-  }).then(data => data.json());
-
+  await axiosInstance.post(`admin/${BASE_PATH}`, { name })
   dispatch(listFolders())
 };
 
@@ -51,7 +40,7 @@ export const createFolder = ({ name }) => async dispatch => {
 //       name
 //     })
 //   }).then(data => data.json());
-// 
+//
 //   dispatch(getFolder(folder))
 //   dispatch(listFolders())
 // };
