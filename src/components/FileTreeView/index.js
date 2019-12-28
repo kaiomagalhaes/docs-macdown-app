@@ -31,7 +31,7 @@ const FileTreeView = (props) => {
     title: folder.name,
     expanded: true,
     folder: true,
-    children: folder.documents.map(doc => ({ ...doc, title: doc.name }))
+    children: folder.documents ? folder.documents.map(doc => ({ ...doc, title: doc.name })) : []
   })
 
   const treeData = folders.map(getFolderWithChildren);
