@@ -8,7 +8,7 @@ const store = configureStore({
   reducer: {
     auth: authReducer,
     file: fileReducer,
-    folders: foldersReducer
+    folders: foldersReducer,
   },
 });
 

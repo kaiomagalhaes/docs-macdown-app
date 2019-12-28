@@ -7,8 +7,8 @@ import { Link } from "@material-ui/core";
 
 import styles from './Navbar.module.scss';
 
-const Navbar = ({ buttons }) => (
-  <AppBar position="static" color='inherit'>
+const Navbar = ({ buttons, color }) => (
+  <AppBar position="static" color={color || 'inherit'}>
     <Toolbar className={styles.nav}>
       <Link href='#'>
         <img src={codelittLogo} alt='Codelitt' />
