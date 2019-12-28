@@ -1,0 +1,24 @@
+.card-content {
+  flex-grow: 1;
+}
+
+.card {
+  display: flex;
+  flex-direction: column;
+  height: 100%;
+}
+
+.card-grid {
+  padding-bottom: 3rem;
+  padding-top: 3rem;
+}
+
+.hero-buttons {
+  margin-top: 2rem;
+}
+
+.hero-content {
+  background-color: #fff;
+  padding-bottom: 3rem;
+  padding-top: 4rem;
+}
