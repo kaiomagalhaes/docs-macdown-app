@@ -15,7 +15,12 @@ import { MOCK_DATA } from './mock.data';
 import FileExplorerTheme from 'react-sortable-tree-theme-file-explorer';
 import FileTreeView from '../../components/FileTreeView';
 import Navbar from '../../components/Navbar';
-import { TextField } from "@material-ui/core";
+import { TextField, Button } from "@material-ui/core";
+
+import {
+  createFolder,
+  listFolders
+} from '../../reducers/folders.reducer'
 
 export const Context = createContext({});
 
@@ -30,7 +35,6 @@ const EditFilePage = (props) => {
     if (id && !file.id) {
       props.fetchFile(id);
     } else if (file.id) {
-      console.log('yo')
       setText(file.content);
       setFileName(file.name)
       props.history.push(`/files/${file.id}/edit`)
@@ -38,7 +42,7 @@ const EditFilePage = (props) => {
   }, [file.id])
 
   useEffect(() => {
-    props.listFiles();
+    props.listFolders();
   }, [])
 
   const navbarButtons = [
@@ -65,17 +69,30 @@ const EditFilePage = (props) => {
   return (
     <>
       <Navbar buttons={navbarButtons} />
-      <div style={{ textAlign: 'right', width: '90vw', marginBottom: '20px', marginTop: '20px' }}>
-      </div>
       <div style={{ display: 'flex' }}>
-        <div style={{ height: '85vh', width: '15vw' }}>
+        <div className={styles['tree-container']}>
+          <div className={styles['title-container']}>
+            <span className={styles.title}>Documents</span>
+            <Button color="secondary"  onClick={(name) => {
+              props.createFolder({
+                name
+              })
+            }}>
+              Create folder
+            </Button>
+          </div>
           <FileTreeView
-            files={props.files}
+            folders={props.folders}
             createFile={(name) => {
-              props.createFile(name, 'banana')
+              props.createFile({
+                name,
+                content: '',
+                folder_id: 1
+              })
               setText('')
               setFileName(name)
             }}
+            createFolder={() => {}}
             onSelectFile={(file) => {
               if (file.title !== 'docs') {
                 console.log('on select file', file)
@@ -112,6 +129,8 @@ const mapDispatchToProps = dispatch => ({
   fetchFile: (id) => dispatch(fetchFile(id)),
   createFile: (name, content) => dispatch(createFile(name, content)),
   updateFile: (id, name, content) => dispatch(updateFile(id, name, content)),
+  createFolder: (folder) => dispatch(createFolder(folder)),
+  listFolders: () => dispatch(listFolders())
 })
 
 export default connect(mapStateToProps, mapDispatchToProps)(EditFilePage);

@@ -3,6 +3,8 @@ import { Link } from 'react-router-dom';
 import SortableTree, { addNodeUnderParent, removeNodeAtPath } from 'react-sortable-tree';
 import FileExplorerTheme from 'react-sortable-tree-theme-file-explorer';
 
+import './FileTreeView.scss';
+
 export const Context = createContext({});
 
 const FileTreeView = (props) => {
@@ -10,8 +12,16 @@ const FileTreeView = (props) => {
 
   const getNodeKey = ({ treeIndex }) => treeIndex;
 
-  const files = [{ title: 'docs', expanded: true, children: props.files.map(file => ({ ...file, title: file.name })) }];
-  const treeData = files
+  const { folders } = props;
+
+  const getFolderWithChildren = folder => ({
+    ...folder,
+    title: folder.name,
+    expanded: true,
+    children: folder.documents.map(doc => ({ ...doc, title: doc.name }))
+  })
+
+  const treeData = folders.map(getFolderWithChildren);
 
   return (
     <SortableTree
@@ -22,14 +32,19 @@ const FileTreeView = (props) => {
       generateNodeProps={({ node, path }) => ({
         onClick: () => props.onSelectFile(node),
         buttons: [
+          <button
+            onClick={() => {
+              props.createFile('New document')
+            }}
+          >
+            New Doc
+                </button>
+          ,
+
           node.title === 'docs' ?
             <button
-              onClick={() => {
-                props.createFile('New document')
-              }}
-            >
-              Create document
-                </button> : null
+              onClick={() => props.createFolder('Test folder')}
+            > New Folder</button> : null
         ],
       })}
     />

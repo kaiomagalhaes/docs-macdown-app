@@ -1,6 +1,6 @@
 import { createSlice } from '@reduxjs/toolkit';
 
-const URL = `${process.env.REACT_APP_API_URL}/files`;
+const URL = `${process.env.REACT_APP_API_URL}/documents`;
 
 const filesSlice = createSlice({
   name: 'files',

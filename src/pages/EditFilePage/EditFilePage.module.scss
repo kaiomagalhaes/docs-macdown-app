@@ -1,0 +1,16 @@
+.tree-container {
+  padding: 16px;
+  box-sizing: border-box;
+  padding: 16px;
+  height: 85vh;
+  width: 15vw;
+
+  .title-container {
+    display: flex;
+    align-items: center;
+
+    .title {
+      font-size: 0.875rem;
+    }
+  }
+}

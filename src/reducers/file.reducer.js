@@ -1,7 +1,7 @@
 import { createSlice } from '@reduxjs/toolkit';
 import { listFiles } from './files.reducer';
 
-const URL = `${process.env}/files`;
+const URL = `${process.env.REACT_APP_API_URL}/documents`;
 
 const filesSlice = createSlice({
   name: 'file',
@@ -26,8 +26,7 @@ const { actions, reducer } = filesSlice;
 // Extract and export each action creator by name
 const { getFile } = actions;
 
-export const createFile = (name, content) => async dispatch => {
-  console.log(name, content)
+export const createFile = ({content, name, folder_id}) => async dispatch => {
   const file = await fetch(URL, {
     method: 'POST',
     mode: 'cors',
@@ -36,7 +35,8 @@ export const createFile = (name, content) => async dispatch => {
     },
     body: JSON.stringify({
       content,
-      name
+      name,
+      folder_id
     })
   }).then(data => data.json());
 

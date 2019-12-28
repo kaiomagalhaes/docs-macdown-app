@@ -17,7 +17,7 @@ const Navbar = ({ buttons }) => (
         {buttons.map(({ onClick, title, type, href, show }, index) => {
           if (type === 'button' && show) {
             return (
-              <Button className={styles.btn} color="primary" variant="contained" key={index} onClick={onClick}>
+              <Button className={styles.btn} color="secondary" variant="contained" key={index} onClick={onClick}>
                 {title}
               </Button>
             )
