@@ -1,6 +1,6 @@
 import { createSlice } from '@reduxjs/toolkit';
 
-const URL = 'https://docs-macdown-api.herokuapp.com/files';
+const URL = `${process.env.REACT_APP_API_URL}/files`;
 
 const filesSlice = createSlice({
   name: 'files',
