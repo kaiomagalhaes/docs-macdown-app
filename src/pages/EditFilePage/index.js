@@ -1,5 +1,5 @@
 import React, { createContext, useState, useEffect } from 'react';
-import {Link} from 'react-router-dom';
+import { Link } from 'react-router-dom';
 import MdEditor from 'react-markdown-editor-lite';
 import MarkdownIt from 'markdown-it';
 import styles from './EditFilePage.module.scss';
@@ -14,6 +14,7 @@ import { listFiles } from '../../reducers/files.reducer';
 import { MOCK_DATA } from './mock.data';
 import FileExplorerTheme from 'react-sortable-tree-theme-file-explorer';
 import FileTreeView from '../../components/FileTreeView';
+import Navbar from '../../components/Navbar';
 
 export const Context = createContext({});
 
@@ -39,24 +40,36 @@ const EditFilePage = (props) => {
     props.listFiles();
   }, [])
 
+  const navbarButtons = [
+    {
+      title: 'See Online',
+      href: `/files/${file.id}`,
+      type: 'link',
+      show: file.id
+    },
+    {
+      title: 'Save',
+      onClick: () => {
+        if (id) {
+          props.updateFile(id, fileName, text)
+        } else {
+          props.createFile(fileName, text)
+        }
+      },
+      type: 'button',
+      show: true
+    },
+  ]
+
   return (
     <>
+    <Navbar buttons={navbarButtons}/>
       <div style={{ textAlign: 'right', width: '90vw', marginBottom: '20px', marginTop: '20px' }}>
         <input
           type="text"
           value={fileName}
           onChange={(e) => setFileName(e.target.value)}
         />
-        <Link style={{ marginRight: '20px', display: id ? 'inline-block' : 'none' }} className={styles.btn} to={`/files/${file.id}`}>See Online</Link>
-        <button onClick={() => {
-          if (id) {
-            props.updateFile(id, fileName, text)
-          } else {
-            props.createFile(fileName, text)
-          }
-        }} className={styles.btn}>
-          Save
-       </button>
       </div>
       <div style={{ display: 'flex' }}>
         <div style={{ height: '90vh', width: '15vw' }}>

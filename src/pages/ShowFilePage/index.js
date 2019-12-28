@@ -20,6 +20,7 @@ import ExpandMoreIcon from '@material-ui/icons/ExpandMore';
 import {StickyContainer, Sticky} from 'react-sticky';
 import classnames from 'classnames';
 import ScrollableAnchor from 'react-scrollable-anchor'
+import Navbar from '../../components/Navbar';
 
 const ShowFilePage = (props) => {
   const {id} = props.match.params;
@@ -87,6 +88,7 @@ const ShowFilePage = (props) => {
 
   return (
     <React.Fragment>
+      <Navbar />
       <div className={styles['title']}>
         {props.file.name}
       </div>
