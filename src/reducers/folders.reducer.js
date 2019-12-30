@@ -5,22 +5,33 @@ const BASE_PATH = `folders`;
 
 const foldersSlice = createSlice({
   name: 'folder',
-  initialState: [],
+  initialState: {
+    all: [],
+    active: {}
+  },
   reducers: {
     getFolders(state, action) {
-      return action.payload;
+      return {all: action.payload};
+    },
+    getFolder(state, action) {
+      return {active: action.payload};
     }
   }
-})
+});
 
 // Extract the action creators object and the reducer
 const { actions, reducer } = foldersSlice;
 // Extract and export each action creator by name
-const { getFolders } = actions;
+const { getFolders, getFolder } = actions;
 
 export const listFolders = () => async dispatch => {
   const response = await axiosInstance.get(BASE_PATH)
   dispatch(getFolders(response.data))
+}
+
+export const fetchFolder = (id) => async dispatch => {
+  const response = await axiosInstance.get(`${BASE_PATH}/${id}`)
+  dispatch(getFolder(response.data))
 }
 
 export const createFolder = ({ name }) => async dispatch => {

@@ -69,7 +69,7 @@ const HomePage = (props) => {
               </Grid>
             ))}
 
-            {!isLoadingFolders && props.folders.map(folder => (
+            {!isLoadingFolders && props.folders.all.map(folder => (
               <Grid item key={folder.id} xs={12} sm={6} md={4}>
                 <Card className={styles.card}>
                   <CardContent className={styles['card-content']}>

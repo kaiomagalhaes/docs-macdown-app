@@ -81,7 +81,7 @@ const EditFilePage = (props) => {
             </Button>
           </div>
           <FileTreeView
-            folders={props.folders}
+            folders={props.folders.all}
             createFile={(folderId) => {
               props.createFile({
                 name: 'New File',

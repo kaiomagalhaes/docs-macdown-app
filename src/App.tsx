@@ -25,7 +25,7 @@ const routes = [
     isPublic: false,
   },
   {
-    path: locations.getShowFilePath(),
+    path: locations.getShowFilePath(ID_PATH_PARAM),
     component: ShowFilePage,
     isPublic: true,
   },
