@@ -1,6 +1,6 @@
 import React, { lazy, Suspense } from 'react';
 import { BrowserRouter as Router, Switch } from 'react-router-dom';
-import locations, {ID_PATH_PARAM} from 'routes';
+import locations, { ID_PATH_PARAM } from 'routes';
 import { ThemeProvider } from '@material-ui/core/styles';
 import codelittTheme from './codelittMaterialTheme';
 import { ProtectedRoute } from './components/ProtectedRoute';
@@ -20,7 +20,7 @@ const routes = [
     isPublic: false,
   },
   {
-    path: locations.getEditFilePath(),
+    path: locations.getEditFilePath(ID_PATH_PARAM),
     component: EditFilePage,
     isPublic: false,
   },

@@ -47,7 +47,7 @@ const EditFilePage = (props) => {
   const navbarButtons = [
     {
       title: 'See Online',
-      href: `/files/${file.id}`,
+      href: locations.getShowFilePath(file.id),
       type: 'link',
       show: file.id
     },

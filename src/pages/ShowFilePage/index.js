@@ -5,22 +5,23 @@ import ReactMarkdown from 'react-markdown';
 import {connect} from 'react-redux';
 import {fetchFile} from '../../reducers/file.reducer';
 import {
-  Container,
-  Grid,
-  Paper,
   Breadcrumbs,
-  Link,
-  Typography,
-  Hidden,
+  Container,
   ExpansionPanel,
-  ExpansionPanelSummary,
   ExpansionPanelDetails,
+  ExpansionPanelSummary,
+  Grid,
+  Hidden,
+  Link,
+  Paper,
+  Typography,
 } from "@material-ui/core";
 import ExpandMoreIcon from '@material-ui/icons/ExpandMore';
-import {StickyContainer, Sticky} from 'react-sticky';
+import {Sticky, StickyContainer} from 'react-sticky';
 import classnames from 'classnames';
 import ScrollableAnchor from 'react-scrollable-anchor'
 import Navbar from '../../components/Navbar';
+import locations from "../../routes";
 
 const ShowFilePage = (props) => {
   const {id} = props.match.params;
@@ -86,9 +87,32 @@ const ShowFilePage = (props) => {
     )
   };
 
+  const navbarButtons = [
+    {
+      title: 'Edit File',
+      href: locations.getEditFilePath(id),
+      type: 'link',
+      show: true
+    },
+  ]
+
+  const getFolderTree = () => {
+    const folderTree = props.file.folder_tree;
+
+    if (!folderTree) {
+      return null;
+    }
+
+    return folderTree.map(folder => (
+      <Link key={folder.id} color="inherit" href={locations.getShowFolderPath(folder.id)}>
+        {folder.name}
+      </Link>
+    ))
+  }
+
   return (
     <React.Fragment>
-      <Navbar />
+      <Navbar buttons={navbarButtons} />
       <div className={styles['title']}>
         {props.file.name}
       </div>
@@ -100,15 +124,11 @@ const ShowFilePage = (props) => {
               <Paper className={styles.paper}>
                 <Typography color="textPrimary" className={styles['breadcrumb-heading']}>You are here:</Typography>
                 <Breadcrumbs aria-label="breadcrumb" className={styles.breadcrumb}>
-                  <Link color="inherit" href="#">
-                    {/* @TODO - update links */}
-                    All
+                  <Link color="inherit" href={locations.getHomePath()}>
+                    Home
                   </Link>
 
-                  <Link color="inherit" href="#">
-                    {/* @TODO - get the folder name */}
-                    Folder name
-                  </Link>
+                  {getFolderTree()}
 
                   <Typography color="textPrimary">{props.file.name}</Typography>
                 </Breadcrumbs>
@@ -120,7 +140,7 @@ const ShowFilePage = (props) => {
               <Grid item xs={12}>
                 <ExpansionPanel>
                   <ExpansionPanelSummary
-                    expandIcon={<ExpandMoreIcon />}>
+                    expandIcon={<ExpandMoreIcon/>}>
                     <h2 className={styles['table-of-contents-expandable']}>On this page</h2>
                   </ExpansionPanelSummary>
                   <ExpansionPanelDetails>
