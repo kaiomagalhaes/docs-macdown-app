@@ -15,7 +15,7 @@ const getAdminLinks = () => {
 
   return (
     <React.Fragment>
-      <Button className={styles.btn} href={locations.getNewFilePath()}>
+      <Button className={styles.btn} color="secondary" variant="contained" href={locations.getNewFilePath()}>
         New File
       </Button>
     </React.Fragment>
@@ -40,9 +40,9 @@ const Navbar = ({ buttons, color }) => (
             )
           } else if (type === 'link' && show) {
             return (
-              <Link className={styles.btn} key={index} href={href}>
+              <Button className={styles.btn} color="secondary" variant="contained" key={index} href={href}>
                 {title}
-              </Link>
+              </Button>
             )
           }
         })}
