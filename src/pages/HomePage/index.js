@@ -8,10 +8,9 @@ import Grid from '@material-ui/core/Grid';
 import Typography from '@material-ui/core/Typography';
 import Container from '@material-ui/core/Container';
 import Navbar from "../../components/Navbar";
-import {listFolders} from "../../reducers/folders.reducer";
+import {listRootFolders} from "../../reducers/folders.reducer";
 import connect from "react-redux/es/connect/connect";
 import styles from './HomePage.module.scss';
-import {Link} from "@material-ui/core";
 import locations from "../../routes";
 
 const HomePage = (props) => {
@@ -19,7 +18,7 @@ const HomePage = (props) => {
 
   useEffect(() => {
     const loadFolders = async () => {
-      await props.listFolders();
+      await props.listRootFolders();
       setIsLoadingFolders(false);
     };
 
@@ -69,7 +68,7 @@ const HomePage = (props) => {
               </Grid>
             ))}
 
-            {!isLoadingFolders && props.folders.all.map(folder => (
+            {!isLoadingFolders && props.folders.roots.map(folder => (
               <Grid item key={folder.id} xs={12} sm={6} md={4}>
                 <Card className={styles.card}>
                   <CardContent className={styles['card-content']}>
@@ -101,7 +100,7 @@ const mapStateToProps = state => ({
 })
 
 const mapDispatchToProps = dispatch => ({
-  listFolders: () => dispatch(listFolders())
+  listRootFolders: () => dispatch(listRootFolders())
 })
 
 export default connect(mapStateToProps, mapDispatchToProps)(HomePage);
