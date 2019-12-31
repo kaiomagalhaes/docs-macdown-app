@@ -15,6 +15,8 @@ import FileExplorerTheme from 'react-sortable-tree-theme-file-explorer';
 import FileTreeView from '../../components/FileTreeView';
 import Navbar from '../../components/Navbar';
 import { TextField, Button } from "@material-ui/core";
+import { FontAwesomeIcon } from '@fortawesome/react-fontawesome'
+import { faFolderPlus } from '@fortawesome/free-solid-svg-icons'
 
 import {
   createFolder,
@@ -72,13 +74,12 @@ const EditFilePage = (props) => {
         <div className={styles['tree-container']}>
           <div className={styles['title-container']}>
             <span className={styles.title}>Documents</span>
-            <Button color="secondary" onClick={() => {
+            <FontAwesomeIcon className={styles.icon} icon={faFolderPlus} onClick={() => {
               props.createFolder({
                 name: 'New Folder'
               })
-            }}>
-              Create folder
-            </Button>
+            }}
+            />
           </div>
           <FileTreeView
             folders={props.folders.all}

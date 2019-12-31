@@ -3,21 +3,22 @@ import { Link } from 'react-router-dom';
 import SortableTree, { addNodeUnderParent, removeNodeAtPath } from 'react-sortable-tree';
 import FileExplorerTheme from 'react-sortable-tree-theme-file-explorer';
 import { Button } from "@material-ui/core";
+import { FontAwesomeIcon } from '@fortawesome/react-fontawesome'
+import { faFile } from '@fortawesome/free-solid-svg-icons'
+
+import styles from './FileTreeView.module.scss';
 
 import './FileTreeView.scss';
 
 export const Context = createContext({});
 
 const getNewDocBtn = (props, folder) => (
-  <Button
-    color="primary"
-    size="small"
-    onClick={() => {
+  <div className={styles['icon-container']}>
+    <span className={styles.plus}>+</span>
+    <FontAwesomeIcon icon={faFile} onClick={() => {
       props.createFile(folder.id)
-    }}
-  >
-    New Doc
-  </Button>
+    }} />
+  </div>
 )
 const FileTreeView = (props) => {
   const [addAsFirstChild, setAddAsFirstChild] = useState(false)
@@ -43,9 +44,9 @@ const FileTreeView = (props) => {
       treeData={treeData}
       canDrag={false}
       generateNodeProps={({ node, path }) => ({
-        onClick: () => !node.folder ? props.onSelectFile(node): null,
+        onClick: () => !node.folder ? props.onSelectFile(node) : null,
         buttons: [
-          node.folder ? getNewDocBtn(props, node): null
+          node.folder ? getNewDocBtn(props, node) : null
         ],
       })}
     />
