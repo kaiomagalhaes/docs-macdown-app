@@ -48,6 +48,11 @@ export const createFolder = ({ name }) => async dispatch => {
   dispatch(listFolders())
 };
 
+export const deleteFolder = (id) => async dispatch => {
+  const response = await axiosInstance.delete(`admin/${BASE_PATH}/${id}`);
+
+  dispatch(listFolders())
+};
 // export const updateFolder = (id, name, content) => async dispatch => {
 //   const folder = await fetch(`${URL}/${id}`, {
 //     method: 'PATCH',

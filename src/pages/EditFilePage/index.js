@@ -19,7 +19,8 @@ import { faFolderPlus } from '@fortawesome/free-solid-svg-icons'
 
 import {
   createFolder,
-  listFolders
+  listFolders,
+  deleteFolder
 } from '../../reducers/folders.reducer'
 
 export const Context = createContext({});
@@ -93,9 +94,9 @@ const EditFilePage = (props) => {
           </div>
           <FileTreeView
             deleteFile={props.deleteFile}
+            deleteFolder={props.deleteFolder}
             folders={props.folders.all}
             createFile={(folderId) => {
-              console.log('creating file', folderId)
               const file = getDefaultFile(folderId);
               props.createFile({
                 ...file,
@@ -129,6 +130,7 @@ const mapStateToProps = state => ({
 
 const mapDispatchToProps = dispatch => ({
   deleteFile: (id) => dispatch(deleteFile(id)),
+  deleteFolder: (id) => dispatch(deleteFolder(id)),
   fetchFile: (id) => dispatch(fetchFile(id)),
   createFile: (file) => dispatch(createFile(file)),
   updateFile: (id, name, content) => dispatch(updateFile(id, name, content)),
