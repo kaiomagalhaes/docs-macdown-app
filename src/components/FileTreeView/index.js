@@ -13,17 +13,17 @@ import './FileTreeView.scss';
 export const Context = createContext({});
 
 const getNewDocBtn = (props, folder) => (
-  <div className={styles['icon-container']}>
-    <span className={styles.plus}>+</span>
-    <FontAwesomeIcon icon={faFile} onClick={() => {
+  <div className={styles['icon-container']}  onClick={() => {
       props.createFile(folder.id)
-    }} />
+    }}>
+    <span className={styles.plus}>+</span>
+    <FontAwesomeIcon className={styles.icon} icon={faFile} />
   </div>
 )
 
 const getDeleteBtn = (props, node) => (
   <div className={styles['icon-container']}>
-    <FontAwesomeIcon icon={faTrash} onClick={() => {
+    <FontAwesomeIcon className={styles.icon} icon={faTrash} onClick={() => {
       if (node.folder) {
         props.deleteFolder(node.id)
       } else {

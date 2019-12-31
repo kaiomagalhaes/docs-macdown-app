@@ -8,4 +8,27 @@
 
 .rstcustom__rowLabel {
   font-size: 0.875rem !important;
+  cursor: pointer;
+
+  &:hover {
+    font-weight: bold;
+  }
+}
+
+.rstcustom__toolbarButton {
+  cursor: pointer;
+
+  &:last-child {
+    margin: 0 10px;
+  }
+
+  &:hover {
+      color: blue
+  }
+}
+
+.rstcustom__rowWrapper {
+  &:hover {
+    opacity: 1;
+  }
 }

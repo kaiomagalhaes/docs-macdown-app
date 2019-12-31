@@ -77,7 +77,6 @@ const EditFilePage = (props) => {
     },
   ]
 
-  console.log(editingFile)
   return (
     <>
       <Navbar buttons={navbarButtons} />
@@ -96,8 +95,12 @@ const EditFilePage = (props) => {
             deleteFile={props.deleteFile}
             folders={props.folders.all}
             createFile={(folderId) => {
+              console.log('creating file', folderId)
               const file = getDefaultFile(folderId);
-              props.createFile(file)
+              props.createFile({
+                ...file,
+                folder_id: folderId
+              })
               setEditingFile(file)
             }}
             onSelectFile={selectFile}
