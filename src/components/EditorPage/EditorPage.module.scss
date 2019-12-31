@@ -1,0 +1,26 @@
+.tree-container {
+  padding: 26px 16px;
+  box-sizing: border-box;
+  height: 85vh;
+  width: 15vw;
+
+  .title-container {
+    display: flex;
+    align-items: center;
+
+    .title {
+      font-size: 0.875rem;
+      margin-right: 10px;
+    }
+
+    .icon {
+      cursor: pointer 
+    }
+  }
+}
+
+.editor-container {
+  margin-top: 10px;
+  height: 80vh;
+  width: 80vw;
+}

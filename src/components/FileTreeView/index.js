@@ -1,6 +1,6 @@
 import React, { createContext, useState, useEffect } from 'react';
 import { Link } from 'react-router-dom';
-import SortableTree, { addNodeUnderParent, removeNodeAtPath } from 'react-sortable-tree';
+import SortableTree, { addNodeUnderParent, removeNodeAtPath, NodeRendererDefault } from 'react-sortable-tree';
 import FileExplorerTheme from 'react-sortable-tree-theme-file-explorer';
 import { Button } from "@material-ui/core";
 import { FontAwesomeIcon } from '@fortawesome/react-fontawesome'
