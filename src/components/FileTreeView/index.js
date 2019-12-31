@@ -4,7 +4,7 @@ import SortableTree, { addNodeUnderParent, removeNodeAtPath } from 'react-sortab
 import FileExplorerTheme from 'react-sortable-tree-theme-file-explorer';
 import { Button } from "@material-ui/core";
 import { FontAwesomeIcon } from '@fortawesome/react-fontawesome'
-import { faFile } from '@fortawesome/free-solid-svg-icons'
+import { faFile, faTrash } from '@fortawesome/free-solid-svg-icons'
 
 import styles from './FileTreeView.module.scss';
 
@@ -20,6 +20,20 @@ const getNewDocBtn = (props, folder) => (
     }} />
   </div>
 )
+
+const getDeleteBtn = (props, node) => (
+  <div className={styles['icon-container']}>
+    <FontAwesomeIcon icon={faTrash} onClick={() => {
+      if (node.folder) {
+        props.deleteFolder(node.id)
+      } else {
+        props.deleteFile(node.id)
+      }
+    }}
+    />
+  </div>
+)
+
 const FileTreeView = (props) => {
   const [addAsFirstChild, setAddAsFirstChild] = useState(false)
 
@@ -46,7 +60,8 @@ const FileTreeView = (props) => {
       generateNodeProps={({ node, path }) => ({
         onClick: () => !node.folder ? props.onSelectFile(node) : null,
         buttons: [
-          node.folder ? getNewDocBtn(props, node) : null
+          node.folder ? getNewDocBtn(props, node) : null,
+          getDeleteBtn(props, node)
         ],
       })}
     />

@@ -35,11 +35,14 @@ export const createFile = ({ content, name, folder_id }) => async dispatch => {
   dispatch(listFolders())
 };
 
-export const updateFile = (id, name, content) => async dispatch => {
-  const response = await axiosInstance.patch(`admin/${BASE_PATH}/${id}`, {document: {
-    content,
-    name,
-  }});
+export const deleteFile = (id) => async dispatch => {
+  const response = await axiosInstance.delete(`admin/${BASE_PATH}/${id}`);
+
+  dispatch(listFolders())
+};
+
+export const updateFile = (id, file) => async dispatch => {
+  const response = await axiosInstance.patch(`admin/${BASE_PATH}/${id}`, {document: file});
 
   dispatch(getFile(response.data));
   dispatch(listFolders())

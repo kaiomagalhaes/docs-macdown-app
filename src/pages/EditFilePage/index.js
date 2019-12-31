@@ -7,9 +7,8 @@ import { NavLink } from 'react-router-dom';
 import locations from '../../routes';
 import ReactMarkdown from 'react-markdown';
 import { connect } from 'react-redux';
-import { Treebeard } from 'react-treebeard';
 import SortableTree, { addNodeUnderParent, removeNodeAtPath } from 'react-sortable-tree';
-import { fetchFile, createFile, updateFile } from '../../reducers/file.reducer';
+import { fetchFile, createFile, updateFile, deleteFile } from '../../reducers/file.reducer';
 import { MOCK_DATA } from './mock.data';
 import FileExplorerTheme from 'react-sortable-tree-theme-file-explorer';
 import FileTreeView from '../../components/FileTreeView';
@@ -26,21 +25,32 @@ import {
 export const Context = createContext({});
 
 const EditFilePage = (props) => {
-  const { id } = props.match.params;
-  const [text, setText] = useState(MOCK_DATA);
-  const [fileName, setFileName] = useState('')
+  const { file, match } = props;
+  const { id } = match.params;
   const [parser, setParser] = useState(new MarkdownIt())
-  const { file } = props;
+
+  const getDefaultFile = (folderId) => ({
+    id: undefined,
+    content: MOCK_DATA,
+    folderId,
+    name: 'Your file name'
+  })
+
+  const [editingFile, setEditingFile] = useState(getDefaultFile())
 
   useEffect(() => {
     if (id && !file.id) {
       props.fetchFile(id);
     } else if (file.id) {
-      setText(file.content);
-      setFileName(file.name)
-      props.history.push(`/files/${file.id}/edit`)
+      selectFile(file)
     }
   }, [file.id])
+
+  const selectFile = (file) => {
+    setEditingFile(file)
+    props.history.push(`/files/${file.id}/edit`)
+  }
+
 
   useEffect(() => {
     props.listFolders();
@@ -49,17 +59,17 @@ const EditFilePage = (props) => {
   const navbarButtons = [
     {
       title: 'See Online',
-      href: locations.getShowFilePath(file.id),
+      href: locations.getShowFilePath(editingFile.id),
       type: 'link',
-      show: file.id
+      show: editingFile.id
     },
     {
       title: 'Save',
       onClick: () => {
         if (id) {
-          props.updateFile(id, fileName, text)
+          props.updateFile(id, editingFile)
         } else {
-          props.createFile(fileName, text)
+          props.createFile(editingFile)
         }
       },
       type: 'button',
@@ -67,6 +77,7 @@ const EditFilePage = (props) => {
     },
   ]
 
+  console.log(editingFile)
   return (
     <>
       <Navbar buttons={navbarButtons} />
@@ -82,33 +93,26 @@ const EditFilePage = (props) => {
             />
           </div>
           <FileTreeView
+            deleteFile={props.deleteFile}
             folders={props.folders.all}
             createFile={(folderId) => {
-              props.createFile({
-                name: 'New File',
-                content: MOCK_DATA,
-                folder_id: folderId
-              })
-              setText('')
-              setFileName('New File')
+              const file = getDefaultFile(folderId);
+              props.createFile(file)
+              setEditingFile(file)
             }}
-            onSelectFile={(file) => {
-              props.history.push(`/files/${file.id}/edit`)
-              setText(file.content)
-              setFileName(file.name)
-            }}
+            onSelectFile={selectFile}
           />
         </div>
         <div className={styles['editor-container']}>
           <TextField
             label="File name"
-            value={fileName}
-            onChange={(e) => setFileName(e.target.value)}
+            value={editingFile.name}
+            onChange={(e) => setEditingFile({...editingFile, name: e.target.value})}
           />
           <MdEditor
-            value={text}
+            value={editingFile.content}
             renderHTML={(text) => parser.render(text)}
-            onChange={(p) => setText(p.text)}
+            onChange={(p) => setEditingFile({...editingFile, content: p.text})}
           />
         </div>
       </div>
@@ -121,6 +125,7 @@ const mapStateToProps = state => ({
 })
 
 const mapDispatchToProps = dispatch => ({
+  deleteFile: (id) => dispatch(deleteFile(id)),
   fetchFile: (id) => dispatch(fetchFile(id)),
   createFile: (file) => dispatch(createFile(file)),
   updateFile: (id, name, content) => dispatch(updateFile(id, name, content)),
