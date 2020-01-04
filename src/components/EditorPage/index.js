@@ -1,7 +1,5 @@
 import React, { createContext, useState, useEffect } from 'react';
 import { Link } from 'react-router-dom';
-import MdEditor from 'react-markdown-editor-lite';
-import MarkdownIt from 'markdown-it';
 import styles from './EditorPage.module.scss';
 import { NavLink } from 'react-router-dom';
 import locations from '../../routes';
@@ -11,9 +9,11 @@ import { MOCK_DATA } from './mock.data';
 import FileExplorerTheme from 'react-sortable-tree-theme-file-explorer';
 import FileTreeView from '../../components/FileTreeView';
 import Navbar from '../../components/Navbar';
-import { TextField, Button } from "@material-ui/core";
+import { Button } from "@material-ui/core";
 import { FontAwesomeIcon } from '@fortawesome/react-fontawesome'
 import { faFolderPlus } from '@fortawesome/free-solid-svg-icons'
+import FileEditor from './FileEditor'
+import EmptyEditor from './EmptyEditor';
 
 export const Context = createContext({});
 
@@ -31,8 +31,6 @@ const EditorPage = (props) => {
     deleteFolder,
     folders
   } = props;
-
-  const [parser, setParser] = useState(new MarkdownIt())
 
   const getDefaultFile = (folderId) => ({
     id: undefined,
@@ -52,6 +50,7 @@ const EditorPage = (props) => {
   }, [file.id])
 
   const selectFile = (file) => {
+    console.log('SELECTINF FILE', file)
     setEditingFile(file)
     history.push(`/files/${file.id}/edit`)
   }
@@ -82,6 +81,13 @@ const EditorPage = (props) => {
     },
   ]
 
+  console.log('editing file', editingFile, file)
+  const Editor = editingFile.content ?
+    <FileEditor
+      file={editingFile}
+      onChangeFile={setEditingFile}
+    /> : <EmptyEditor />
+
   return (
     <>
       <Navbar buttons={navbarButtons} />
@@ -97,7 +103,12 @@ const EditorPage = (props) => {
             />
           </div>
           <FileTreeView
-            deleteFile={deleteFile}
+            deleteFile={(id) => {
+              deleteFile(id)
+              console.log('deleting file', id)
+
+              setEditingFile({})
+            }}
             deleteFolder={deleteFolder}
             folders={folders.all}
             createFile={(folderId) => {
@@ -112,16 +123,7 @@ const EditorPage = (props) => {
           />
         </div>
         <div className={styles['editor-container']}>
-          <TextField
-            label="File name"
-            value={editingFile.name}
-            onChange={(e) => setEditingFile({ ...editingFile, name: e.target.value })}
-          />
-          <MdEditor
-            value={editingFile.content}
-            renderHTML={(text) => parser.render(text)}
-            onChange={(p) => setEditingFile({ ...editingFile, content: p.text })}
-          />
+          {Editor}
         </div>
       </div>
     </>

@@ -22,14 +22,16 @@ const getNewDocBtn = (props, folder) => (
 )
 
 const getDeleteBtn = (props, node) => (
-  <div className={styles['icon-container']}>
-    <FontAwesomeIcon className={styles.icon} icon={faTrash} onClick={() => {
+  <div className={styles['icon-container']} onClick={(e) => {
+      node.deleted = true
+
       if (node.folder) {
         props.deleteFolder(node.id)
       } else {
         props.deleteFile(node.id)
       }
-    }}
+    }}>
+    <FontAwesomeIcon className={styles.icon} icon={faTrash}
     />
   </div>
 )
@@ -58,7 +60,9 @@ const FileTreeView = (props) => {
       treeData={treeData}
       canDrag={false}
       generateNodeProps={({ node, path }) => ({
-        onClick: () => !node.folder ? props.onSelectFile(node) : null,
+        onClick: () => {
+          return !node.folder && !node.deleted ? props.onSelectFile(node) : null
+        },
         buttons: [
           node.folder ? getNewDocBtn(props, node) : null,
           getDeleteBtn(props, node)
