@@ -50,7 +50,6 @@ const EditorPage = (props) => {
   }, [file.id])
 
   const selectFile = (file) => {
-    console.log('SELECTINF FILE', file)
     setEditingFile(file)
     history.push(`/files/${file.id}/edit`)
   }
@@ -81,7 +80,6 @@ const EditorPage = (props) => {
     },
   ]
 
-  console.log('editing file', editingFile, file)
   const Editor = editingFile.content ?
     <FileEditor
       file={editingFile}
@@ -90,7 +88,7 @@ const EditorPage = (props) => {
 
   return (
     <>
-      <Navbar buttons={navbarButtons} />
+      <Navbar buttons={editingFile.content ? navbarButtons : []} />
       <div style={{ display: 'flex' }}>
         <div className={styles['tree-container']}>
           <div className={styles['title-container']}>
@@ -105,7 +103,6 @@ const EditorPage = (props) => {
           <FileTreeView
             deleteFile={(id) => {
               deleteFile(id)
-              console.log('deleting file', id)
 
               setEditingFile({})
             }}
