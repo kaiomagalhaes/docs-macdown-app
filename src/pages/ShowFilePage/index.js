@@ -45,7 +45,8 @@ const ShowFilePage = (props) => {
     }
 
     return folderTree.map(folder => (
-      <Link key={folder.id} color="inherit" href={locations.getShowFolderPath(folder.id)}>
+      //TODO - link to the home section of the folder
+      <Link key={folder.id} color="inherit" href={locations.getHomePath()}>
         {folder.name}
       </Link>
     ))

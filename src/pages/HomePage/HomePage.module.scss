@@ -1,3 +1,5 @@
+@import '../../assets/stylesheets/colors';
+
 .card-content {
   flex-grow: 1;
 }
@@ -21,4 +23,31 @@
   background-color: #fff;
   padding-bottom: 3rem;
   padding-top: 4rem;
+}
+
+.title {
+  align-items: center;
+  background-color: $main-blue;
+  color: #fff;
+  display: flex;
+  font-size: 2.5rem;
+  justify-content: center;
+  line-height: 2.5rem;
+  margin-bottom: 1rem;
+  min-height: 8rem;
+  padding: 2rem;
+}
+
+.intro-content {
+  p > a {
+    margin-left: 1rem;
+  }
+
+  h2, h3, h4, h5 {
+    margin-left: 1rem;
+  }
+
+  h1, h2, h3, h4, h5 {
+    margin-bottom: 0.75rem;
+  }
 }

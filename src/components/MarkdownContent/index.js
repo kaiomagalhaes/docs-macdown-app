@@ -20,6 +20,7 @@ const MarkdownContent = (props) => {
   const [slugs, setSlugs] = useState([]);
 
   let headingsFound = 0;
+  let slugId = 1;
 
   const renderSlugs = () => {
     if (!slugs) {
@@ -60,7 +61,7 @@ const MarkdownContent = (props) => {
   const headingRenderer = (props) => {
     let children = React.Children.toArray(props.children);
     let text = children.reduce(flatten, '');
-    let slug = text.toLowerCase().replace(/\W/g, '-');
+    let slug = slugId++ + '-' + text.toLowerCase().replace(/\W/g, '-');
 
     addSlug(slug, props);
 
@@ -105,7 +106,7 @@ const MarkdownContent = (props) => {
 
           <Hidden smDown>
             <Grid item xs={12} md={4}>
-              <Sticky>
+              <Sticky offset={100}>
                 {({style}) => (
                   <Paper style={style} className={classnames(styles.paper, styles['table-of-contents'])}>
                     <h2>
