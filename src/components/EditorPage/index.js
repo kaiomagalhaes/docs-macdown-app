@@ -106,7 +106,13 @@ const EditorPage = (props) => {
 
               setEditingFile({})
             }}
-            deleteFolder={deleteFolder}
+            deleteFolder={(id) => {
+              deleteFolder(id)
+
+              if (editingFile.folder_id === id) {
+                setEditingFile({})
+              }
+            }}
             folders={folders.all}
             createFile={(folderId) => {
               const file = getDefaultFile(folderId);
