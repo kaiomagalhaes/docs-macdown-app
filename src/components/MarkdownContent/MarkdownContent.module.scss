@@ -1,0 +1,70 @@
+@import '../../assets/stylesheets/colors';
+
+.paper {
+  padding: 1rem;
+}
+
+.table-of-contents {
+  max-height: 100vh;
+  overflow: auto;
+}
+
+.table-of-contents-expandable {
+  margin: 0;
+}
+
+.md-heading {
+  position: relative;
+
+  .md-heading-title {
+    display: inline-block;
+  }
+
+  .md-heading-anchor {
+    background: url('../../assets/images/anchor.svg') no-repeat left;
+    cursor: pointer;
+    display: none;
+    height: 16px;
+    left: -1rem;
+    padding-right: 0.3rem;
+    position: absolute;
+    top: 50%;
+    transform: translateY(-50%);
+    width: 16px;
+  }
+
+  &:hover {
+    .md-heading-anchor {
+      display: inline-block;
+    }
+  }
+}
+
+.list-item-h1 {
+  list-style: disc;
+}
+
+.list-item-h2 {
+  list-style: circle;
+  margin-left: 0.75rem;
+}
+
+.list-item-h3 {
+  list-style: square;
+  margin-left: 1.5rem;
+}
+
+.list-item-h4 {
+  list-style: square;
+  margin-left: 2.25rem;
+}
+
+.list-item-h5 {
+  list-style: square;
+  margin-left: 3rem;
+}
+
+.list-item-h6 {
+  list-style: square;
+  margin-left: 3.75rem;
+}
